@@ -4,6 +4,8 @@ let pool = require('./sql_conn.js')
 //We use this create the SHA256 hash
 const crypto = require("crypto");
 
+const PASS = process.env.EMAIL_PASSWORD
+
 var nodemailer = require('nodemailer');
 
 function sendEmail(from, receiver, subj, message) {
@@ -18,9 +20,9 @@ function sendEmail(from, receiver, subj, message) {
     service: 'gmail',
     auth: {
       user: from,
-      pass: 'uwhuskies!1'
+      pass: PASS
     }
-  })
+  });
 
   var mailOptions = {
     from: from,
