@@ -70,7 +70,6 @@ router.get('/', (request, response) => {
                     let token = jwt.sign(
                         {
                             "email": email,
-
                         },
                         config.secret,
                         { 
@@ -83,7 +82,7 @@ router.get('/', (request, response) => {
                         message: 'Authentication successful!',
                         token: token,
                         memberid: result.rows[0].memberid,
-                        username: result.row[0].username
+                        username: result.rows[0].username
                     })
                 } else {
                     //credentials dod not match
