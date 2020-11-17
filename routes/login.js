@@ -80,9 +80,7 @@ router.get('/', (request, response) => {
                     response.json({
                         success: true,
                         message: 'Authentication successful!',
-                        token: token,
-                        memberid: result.rows[0].memberid,
-                        username: result.rows[0].username
+                        token: token
                     })
                 } else {
                     //credentials dod not match
