@@ -13,6 +13,10 @@ app.use('/auth', require('./routes/login.js'))
 
 app.use('/auth', require('./routes/register.js'))
 
+points:app.use('/messages', middleware.checkToken, require('./routes/messages.js'))
+
+app.use('/chats', middleware.checkToken, require('./routes/chats.js'))
+
 /*
  * This middleware function will respond to inproperly formed JSON in 
  * request parameters.
