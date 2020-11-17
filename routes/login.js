@@ -47,7 +47,7 @@ router.get('/', (request, response) => {
     const [email, theirPw] = credentials.split(':')
 
     if(email && theirPw) {
-        let theQuery = "SELECT Password, Salt, MemberId FROM Members WHERE Email=$1"
+        let theQuery = "SELECT Password, Salt, MemberId, Username FROM Members WHERE Email=$1"
         let values = [email]
         pool.query(theQuery, values)
             .then(result => { 
@@ -70,7 +70,7 @@ router.get('/', (request, response) => {
                     let token = jwt.sign(
                         {
                             "email": email,
-                            memberid: result.rows[0].memberid
+
                         },
                         config.secret,
                         { 
@@ -81,7 +81,9 @@ router.get('/', (request, response) => {
                     response.json({
                         success: true,
                         message: 'Authentication successful!',
-                        token: token
+                        token: token,
+                        memberid: result.rows[0].memberid,
+                        username: result.row[0].username
                     })
                 } else {
                     //credentials dod not match
@@ -93,7 +95,7 @@ router.get('/', (request, response) => {
             .catch((err) => {
                 //log the error
                 //console.log(err.stack)
-                res.status(400).send({
+                response.status(400).send({
                     message: err.detail
                 })
             })
