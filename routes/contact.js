@@ -28,7 +28,7 @@ router.use(require("body-parser").json())
  * @apiUse JSONError
  */
 router.get("/", (request, response, next) => {
-    console.log("/contacts");
+    console.log("/contact");
     if (!request.decoded.memberid) {
         response.status(400).send({
             message: "Missing required information"
