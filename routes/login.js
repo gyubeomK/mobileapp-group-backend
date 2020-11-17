@@ -71,7 +71,6 @@ router.get('/', (request, response) => {
                         {
                             "email": email,
                             memberid: result.rows[0].memberid
-
                         },
                         config.secret,
                         { 
@@ -82,9 +81,7 @@ router.get('/', (request, response) => {
                     response.json({
                         success: true,
                         message: 'Authentication successful!',
-                        token: token,
-                        memberid: result.rows[0].memberid,
-                        username: result.row[0].username
+                        token: token
                     })
                 } else {
                     //credentials dod not match
@@ -96,7 +93,7 @@ router.get('/', (request, response) => {
             .catch((err) => {
                 //log the error
                 //console.log(err.stack)
-                response.status(400).send({
+                res.status(400).send({
                     message: err.detail
                 })
             })
