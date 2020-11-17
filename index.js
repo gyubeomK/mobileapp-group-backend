@@ -1,4 +1,5 @@
 //express is the framework we're going to use to handle requests
+//push test
 const express = require('express')
 //Create a new instance of express
 const app = express()
@@ -13,9 +14,13 @@ app.use('/auth', require('./routes/login.js'))
 
 app.use('/auth', require('./routes/register.js'))
 
-points:app.use('/messages', middleware.checkToken, require('./routes/messages.js'))
+app.use('/auth', middleware.checkToken, require('./routes/pushyregister.js'))
+
+app.use('/messages', middleware.checkToken, require('./routes/messages.js'))
 
 app.use('/chats', middleware.checkToken, require('./routes/chats.js'))
+
+app.use('/contact', middleware.checkToken,require('./routes/contact.js'))
 
 /*
  * This middleware function will respond to inproperly formed JSON in 
@@ -49,6 +54,8 @@ app.use(function(err, req, res, next) {
    * https://apidocjs.com/
    */
   app.use("/doc", express.static('apidoc'))
+
+  //app.use('/contact', middleware.checkToken, require('./routes/contact.js'))
   
   /* 
   * Heroku will assign a port you can use via the 'PORT' environment variable
