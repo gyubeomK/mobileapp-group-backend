@@ -49,7 +49,7 @@ app.use(function(err, req, res, next) {
    */
   app.use("/doc", express.static('apidoc'))
 
-  app.use('/contact', middleware.checkToken, require('./routes/contact.js'))
+  //app.use('/contact', middleware.checkToken, require('./routes/contact.js'))
   
   /* 
   * Heroku will assign a port you can use via the 'PORT' environment variable
