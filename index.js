@@ -4,7 +4,7 @@ const express = require('express')
 //Create a new instance of express
 const app = express()
 
-let middleware = require('./utilities/middleware')
+let middleware = require('./utilities/middleware.js')
 
 const bodyParser = require("body-parser");
 //This allows parsing of the body of POST requests, that are encoded in JSON
@@ -59,6 +59,6 @@ app.use(function(err, req, res, next) {
   * let port; = process.env.PORT;
   * if(port == null) {port = 5000} 
   */ 
- app.listen(process.env.PORT || 3000, function(){
-    console.log("Express server listening on port %d in %s mode", this.address().port, app.settings.env);
+  app.listen(process.env.PORT || 5000, () => {
+      console.log("Server up and running on port: " + (process.env.PORT || 5000));
   });
