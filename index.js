@@ -14,7 +14,7 @@ app.use('/auth', require('./routes/login.js'))
 
 app.use('/auth', require('./routes/register.js'))
 
-app.use('/contact', require('./routes/contact.js'))
+app.use('/contact', middleware.checkToken,require('./routes/contact.js'))
 
 /*
  * This middleware function will respond to inproperly formed JSON in 

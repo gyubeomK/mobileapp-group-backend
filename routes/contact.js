@@ -49,7 +49,7 @@ router.get("/", (request, response, next) => {
         .then(result => {
             if (result.rowCount == 0) {
                 response.status(404).send({
-                    message: "Contact not found"
+                    message: "no contacts"
                 })
             } else {
                 let listContacts = [];
