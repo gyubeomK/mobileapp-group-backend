@@ -78,4 +78,58 @@ router.get("/", (request, response, next) => {
         })
 });
 
+/**
+ * @api {delete} /contact/:memberId? to delete a user contact
+ * @apiName deleteContact
+ * @apiGroup Contact
+ * 
+ * @apiDescription send a signal to delete a contact with matching memberID
+ * 
+ * @apiParam {number} memberID
+ * 
+ * @apiSuccess {boolean} true if the contact is found and deleted
+ * 
+ * @apiError (400: Missing Params) {String} message "Missing required information"
+ * @apiError (400: Bad Token) {String} message "MemberId must be a number"
+ * @apiError (404: query return no row) {String} message "contact not found"
+ * 
+ * @apiError (400: SQL Error) {String} SQL error
+ */
+
+router.delete("/contact/:memberId?", (request, response, next) => {
+    console.log("/contact/" + request.params.memberId);
+    if (!request.params.memberId) {
+        response.status(400).send({
+            message: "Missing required information"
+        })
+    } else if (isNaN(request.params.memberId)) {
+        response.status(400).send({
+            message: "MemberID must be a number"
+        })
+    } else {
+        next()
+    }
+}, (request, response) => {
+    let query = 'DELETE FROM Contacts WHERE MemberID_A = $1 and MemberID_B = $2'
+    let values = [request.decoded.memberid, request.params.memberId]
+
+    pool.query(query, values).then(result => {
+        if (result.rowCount == 0 ) {
+            response.status(404).send({
+                message: "contact not found"
+            })
+        } else {
+            response.send({
+                success: true
+            })
+        }
+    }).catch(error => {
+        response.status(400).send({
+            message: "SQL Error",
+            error: error
+        })
+    })
+});
+
+
 module.exports = router
