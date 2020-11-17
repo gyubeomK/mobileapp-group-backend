@@ -2,6 +2,7 @@ const { response } = require('express')
 
 //express is the framework we're going to use to handle requests
 const express = require('express')
+const { route } = require('./login')
 
 //Access to Heroku database
 let pool = require('../utilities/utils').pool
@@ -76,3 +77,5 @@ router.get("/", (request, response, next) => {
             })
         })
 });
+
+module.exports = router
