@@ -1,7 +1,7 @@
 const { response } = require('express')
 
 //express is the framework we're going to use to handle requests
-const express = requre('express')
+const express = require('express')
 
 //Access to Heroku database
 let pool = require('../utilities/utils').pool
