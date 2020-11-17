@@ -4,7 +4,7 @@
   "description": "TCSS 450 Lab for creating a webservice",
   "main": "index.js",
   "scripts": {
-    "test": "index.js"
+    "start": "node index.js"
   },
   "keywords": [
     "TCSS450",
