@@ -17,7 +17,7 @@ let jwt = require('jsonwebtoken')
 let config = {
     secret: process.env.JSON_WEB_TOKEN
 }
-
+     
 /**
  * @api {get} /auth Request to sign a user in the system
  * @apiName GetAuth
