@@ -132,4 +132,4 @@ router.delete("/contact/:memberId?", (request, response, next) => {
 });
 
 
-module.exports = routers
+module.exports = router
