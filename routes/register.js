@@ -65,7 +65,9 @@ router.post('/', (req, res) => {
                 //We successfully added the user, let the user know
                 res.status(201).send({
                     success: true,
-                    email: result.rows[0].email
+                    email: result.rows[0].email,
+                    username: result.rows[0].username,
+                    primarykey: result.rows[0].primarykey
                 })
                 sendEmail("uwnetid@uw.edu", email, "Welcome!", "<strong>Welcome to our app!</strong>");
             })
