@@ -229,9 +229,15 @@ router.post('/favorite', (request, response, next) => {
     let values = [request.decoded.memberid, request.body.memberid]
 
     pool.query(query, values).then(result => {
-        response.send({
+        if (result.rowCount == 0) {
+            response.status(404).send({
+                message: "error"
+            })
+        } else {
+            response.send({
             success: true
         })
+        }
     }).catch(err => {
         console.log(err);
         response.status(400).send({
