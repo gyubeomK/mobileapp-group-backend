@@ -1,3 +1,9 @@
+/**
+ * Contact back-end
+ * @author Ford Nguyen
+ * @version 3.0
+ */
+
 const { response } = require('express')
 
 //express is the framework we're going to use to handle requests
@@ -129,6 +135,69 @@ router.delete("/contact/:memberId?", (request, response, next) => {
             error: error
         })
     })
+});
+
+
+/**
+ * @api {get} /contacts/requestlist Request to get list of friend request 
+ * @apiName getFriendRequestList
+ * @apiGroup Contacts
+ * 
+ * @apiDescription Request to get list of friend requests
+ * 
+ * @apiSuccess {Object[]} request List of contact
+ * 
+ * @apiError (404: memberId Not Found) {String} message "member ID Not Found"
+ * 
+ * @apiError (400: SQL Error) {String} message the reported SQL error details
+ * 
+ * @apiUse JSONError
+ */
+router.get("/requestlist", (request, response, next) => {
+    console.log("/requestlist");
+    if (!request.decoded.memberid) {
+        response.status(400).send({
+            message: "Missing required information"
+        })
+    } else if (isNaN(request.decoded.memberid)) {
+        response.status(400).send({
+            message: "Malformed parameter. memberId must be a number"
+        })
+    } else {
+        next()
+    }
+}, (request, response) => {
+    //Get contact info
+    let query = 'SELECT Verified, MemberID_B, Members.FirstName, Members.LastName, Members.email, Members.Username FROM Contacts INNER JOIN Members ON Contacts.MemberID_B = Members.MemberID where Contacts.MemberID_A = $1'
+    let values = [request.decoded.memberid]
+
+    pool.query(query, values)
+        .then(result => {
+            if (result.rowCount == 0) {
+                response.status(404).send({
+                    message: "no friend request"
+                })
+            } else {
+                let listRequest = [];
+                result.rows.forEach(entry => {
+                    if (entry.verified == 0) {
+                        listRequest.push(
+                        {
+                            "username" : entry.username
+                        })
+                    }
+                })
+                response.send({
+                    success: true,
+                    contacts: listContacts
+                })
+            }
+        }).catch(error => {
+            response.status(400).send({
+                message: "SQL Error",
+                error: error
+            })
+        })
 });
 
 
