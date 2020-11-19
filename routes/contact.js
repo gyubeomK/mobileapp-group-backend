@@ -168,7 +168,7 @@ router.get("/requestlist", (request, response, next) => {
     }
 }, (request, response) => {
     //Get contact info
-    let query = 'SELECT Verified, MemberID_B, Members.FirstName, Members.LastName, Members.email, Members.Username FROM Contacts INNER JOIN Members ON Contacts.MemberID_B = Members.MemberID where Contacts.MemberID_A = $1'
+    let query = 'SELECT Verified, MemberID_B, Members.FirstName, Members.LastName, Members.email, Members.Username FROM Contacts INNER JOIN Members ON Contacts.MemberID_B = Members.MemberID WHERE Contacts.MemberID_A = $1'
     let values = [request.decoded.memberid]
 
     pool.query(query, values)
