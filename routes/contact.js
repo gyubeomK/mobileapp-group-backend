@@ -226,7 +226,7 @@ router.post('/favorite', (request, response, next) => {
     }
 }, (request, response) => {
     let query = 'UPDATE Contacts SET Favorite = 1 WHERE MemberID_A = $1 AND MemberID_B = $2'
-    let values = [request.body.memberid1, request.body.memberid2]
+    let values = [request.body.memberId1, request.body.memberId2]
 
     pool.query(query, values).then(result => {
         if (result.rowCount == 0) {
