@@ -218,7 +218,7 @@ router.get("/requestlist", (request, response, next) => {
  * @apiError (400: SQL Error) catch by SQL Error
  */
 router.post('/favorite/:memberId?', (request, response, next) => {
-    console.log("User " + request.decoded.memberId + " Favor " + request.params.memberId);
+    console.log("User " + request.decoded.memberid + " Favor " + request.params.memberId);
     if(!request.params.memberId) {
         response.status(400).send({
             message: "Missing Required Information"
@@ -318,4 +318,33 @@ router.get("/favorite", (request, response, next) => {
             })
         })
 });
+
+router.post("/request/:memberId?", (request, response, next) => {
+    console.log("User " + request.decoded.memberid + " accept " + request.params.memberId);
+    if (!request.params.memberId) {
+        response.status(400).send({
+            message: "Missing required information"
+        })
+    } else if (isNaN(request.params.memberId)) {
+        response.status(400).send({
+            message: "Malformed parameter. memberId must be a number"
+        })
+    } else {
+        next()
+    }
+}, (request, response) => {
+    let query = 'UPDATE Contacts SET Verified = 1 WHERE MemberID_A = $1 AND MemberID_B = $2'
+    let values = [request.decoded.memberid, request.params.memberId]
+
+    pool.query(query, values).then(result => {
+        response.send({
+            success: true
+        })
+    }).catch(error => {
+        response.status(400).send({
+            message: "SQL Error",
+            error: error
+        })
+    })
+})
 module.exports = router
