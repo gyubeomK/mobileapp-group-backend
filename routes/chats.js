@@ -9,6 +9,43 @@ var router = express.Router()
 //This allows parsing of the body of POST requests, that are encoded in JSON
 router.use(require("body-parser").json())
 
+
+//ddddd
+router.get("/chatlist", (request, response, next) => {
+    console.log("/chatlist");
+}, (request, response) => {
+    let query = 'SELECT ChatID, Name FROM Chats'
+    let values = [request.decoded.memberid]
+    pool.query(query, values)
+        .then(result => {
+            if (result.rowCount == 0) {
+                response.status(404).send({
+                    message: "No messages"
+                })
+            } else {
+                let listContactChats = [];
+                result.rows.forEach(entry =>
+                    listContactChats.push(
+                        {
+                            "chat": entry.chatid,
+                            "name": entry.name
+                        }
+                    )
+                )
+                response.send({
+                    success: true,
+                    chats: listContactChats
+                })
+            }
+        }).catch(error => {
+            console.log(error);
+            response.status(400).send({
+                message: "SQL Error",
+                error: error
+            })
+        })
+});
+
 /**
  * @apiDefine JSONError
  * @apiError (400: JSON Error) {String} message "malformed JSON in parameters"
