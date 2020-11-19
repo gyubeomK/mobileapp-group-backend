@@ -10,7 +10,7 @@ var router = express.Router()
 
 router.get("/", (req, res) => {
 
-    let url = `http://dataservice.accuweather.com/currentconditions/v1/41531_PC?apikey=${API_KEY}`
+    let url = `http://dataservice.accuweather.com/forecasts/v1/daily/5day/41531_PC?apikey=%20%09${API_KEY}`
 
     request(url, function (error, response, body) {
 
