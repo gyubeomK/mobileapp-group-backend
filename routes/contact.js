@@ -189,7 +189,7 @@ router.get("/requestlist", (request, response, next) => {
                 })
                 response.send({
                     success: true,
-                    contacts: listContacts
+                    request: listRequest
                 })
             }
         }).catch(error => {
