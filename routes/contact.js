@@ -186,7 +186,7 @@ router.get("/requestlist", (request, response, next) => {
                         listRequest.push(
                         {
                             "username" : entry.username,
-                            "memberid" : entry.memberid
+                            "memberid" : entry.memberid_b
                         })
                     }
                 })
