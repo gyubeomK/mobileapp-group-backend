@@ -75,14 +75,16 @@ router.get('/', (request, response) => {
                         },
                         config.secret,
                         { 
-                            expiresIn: '365 days' // expires in 14 days
+                            expiresIn: '14 days' // expires in 14 days
                         }
                     )
                     //package and send the results
                     response.json({
                         success: true,
                         message: 'Authentication successful!',
-                        token: token
+                        token: token,
+                        memberid: result.rows[0].memberid,
+                        username: result.rows[0]. username
                     })
                 } else {
                     //credentials dod not match
