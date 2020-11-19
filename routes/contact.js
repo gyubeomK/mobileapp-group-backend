@@ -147,7 +147,7 @@ router.delete("/contact/:memberId?", (request, response, next) => {
  * 
  * @apiSuccess {Object[]} request List of contact
  * 
- * @apiError (404: memberId Not Found) {String} message "member ID Not Found"
+ * @apiError (404: memberId Not Found) {String} message "no friend request"
  * 
  * @apiError (400: SQL Error) {String} message the reported SQL error details
  * 
@@ -161,7 +161,7 @@ router.get("/requestlist", (request, response, next) => {
         })
     } else if (isNaN(request.decoded.memberid)) {
         response.status(400).send({
-            message: "Malformed parameter. memberId must be a number"
+            message: "MemberID must be a number"
         })
     } else {
         next()
@@ -199,6 +199,48 @@ router.get("/requestlist", (request, response, next) => {
             })
         })
 });
+
+
+/**
+ * @api {post} /favorite 
+ * @apiName Favorite 
+ * @apiGroup Contact
+ * 
+ * @apiDescription alter value on favorite column of contacts to 1 if user choose to favorite a person on their contact list
+ * 
+ * @apiSuccess success: true
+ * @apiError (400: SQL Error) catch by SQL Error
+ */
+router.post('/favorite', (request, response, next) => {
+    console.log("User " + request.decoded.memberId + "Favor " + request.body.memberId);
+    if(!request.body.memberId) {
+        response.status(400).send({
+            message: "Missing Required Information"
+        })
+    } else if (isNaN(request.body.memberId)) {
+        response.status(400).send({
+            message: "MemberID must be a number"
+        })
+    } else {
+        next()
+    }
+}, (request, response) => {
+    let query = 'UPDATE Contacts SET Favorite = 1 WHERE MemberID_A = $1 AND MemberID_B = $2'
+    let values = [request.decoded.memberid, request.body.memberid]
+
+    pool.query(query, values).then(result => {
+        response.send({
+            success: true
+        })
+    }).catch(err => {
+        console.log(err);
+        response.status(400).send({
+            message: "SQL Error",
+            error: err
+        })
+        
+    })
+})
 
 
 module.exports = router
