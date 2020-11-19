@@ -212,12 +212,12 @@ router.get("/requestlist", (request, response, next) => {
  * @apiError (400: SQL Error) catch by SQL Error
  */
 router.post('/favorite', (request, response, next) => {
-    console.log("User " + request.body.memberId1 + "Favor " + request.body.memberId2);
-    if(!request.body.memberId) {
+    console.log("User " + request.body.memberId1 + " Favor " + request.body.memberId2);
+    if(!request.body.memberId1 || !request.body.memberId2) {
         response.status(400).send({
             message: "Missing Required Information"
         })
-    } else if (isNaN(request.body.memberId)) {
+    } else if (isNaN(request.body.memberId1) || isNaN(request.body.memberId2)) {
         response.status(400).send({
             message: "MemberID must be a number"
         })
