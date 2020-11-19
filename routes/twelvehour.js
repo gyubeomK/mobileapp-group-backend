@@ -7,21 +7,22 @@ const express = require('express')
 const request = require('request')
 
 var router = express.Router()
+
 /**
- * @api {get} /currentweather Request the current weather of a zip code (98374)
- * @apiName GetCurrentWeather
+ * @api {get} /twelvehour Request the 12 hour forecast of a zip code (98374)
+ * @apiName GetTweleveHour
  * 
  * @apiGroup AccuWeather
  * 
  * @apiDescription This end point is a pass through to the developer.accuweather.com API.
  * All parameters will pass on to http://dataservice.accuweather.com/currentconditions/v1/.
- * See the <a href="https://developer.accuweather.com/accuweather-current-conditions-api/apis/get
- * /currentconditions/v1/%7BlocationKey%7D">Accuweather documentation</a> for a list of optional
+ * See the <a href="https://developer.accuweather.com/accuweather-forecast-api/apis/get/
+ * forecasts/v1/hourly/12hour/%7BlocationKey%7D">Accuweather documentation</a> for a list of optional
  * parameters and expected results.
  */
 router.get("/", (req, res) => {
 
-    let url = `http://dataservice.accuweather.com/currentconditions/v1/41531_PC?apikey=${API_KEY}`
+    let url = `http://dataservice.accuweather.com/forecasts/v1/hourly/12hour/41531_PC?apikey=${API_KEY}`
 
     request(url, function (error, response, body) {
 
