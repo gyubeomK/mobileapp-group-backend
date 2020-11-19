@@ -24,6 +24,8 @@ app.use('/chats', middleware.checkToken, require('./routes/chats.js'))
 
 app.use('/contact', middleware.checkToken,require('./routes/contact.js'))
 
+app.use('/weather', require('./routes/currentweather.js'))
+
 /*
  * This middleware function will respond to inproperly formed JSON in 
  * request parameters.
