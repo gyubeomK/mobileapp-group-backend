@@ -185,7 +185,8 @@ router.get("/requestlist", (request, response, next) => {
                     if (entry.verified == 0) {
                         listRequest.push(
                         {
-                            "username" : entry.username
+                            "username" : entry.username,
+                            "memberid" : entry.memberid
                         })
                     }
                 })
@@ -319,6 +320,20 @@ router.get("/favorite", (request, response, next) => {
         })
 });
 
+/**
+ * @api {post} /request/:memberId?
+ * @apiName acceptFriendRequest
+ * @apiGroup Contact
+ * 
+ * @apiDescription API to accept friend request changing verified in Contact tables from 0 to 1
+ * 
+ * @apiError (400 Missing Params) "Missing required information"
+ * @apiError (400 Bad Token) "Malformed parameter. MemberID must be a number"
+ * 
+ * @apiSuccess success:true
+ * 
+ * @apiError (400 SQL Error) catch by pool query
+ */
 router.post("/request/:memberId?", (request, response, next) => {
     console.log("User " + request.decoded.memberid + " accept " + request.params.memberId);
     if (!request.params.memberId) {
