@@ -147,8 +147,10 @@ router.delete("/contact/:memberId?", (request, response, next) => {
  * 
  * @apiSuccess {Object[]} request List of contact
  * 
- * @apiError (404: memberId Not Found) {String} message "no friend request"
+ * @apiError (400: Missing Params) {String} message "Missing Required Information"
+ * @apiError (400: Bad Token) {String} message "MemberID must be a number"
  * 
+ * @apiError (404: memberId Not Found) {String} message "no friend request"
  * @apiError (400: SQL Error) {String} message the reported SQL error details
  * 
  * @apiUse JSONError
@@ -208,16 +210,20 @@ router.get("/requestlist", (request, response, next) => {
  * 
  * @apiDescription alter value on favorite column of contacts to 1 if user choose to favorite a person on their contact list
  * 
+ * @apiError (400: Missing Params) {String} message "Missing Required Information"
+ * @apiError (400: Bad Token) {String} message "MemberID must be a number"
+ * 
+ * 
  * @apiSuccess success: true
  * @apiError (400: SQL Error) catch by SQL Error
  */
-router.post('/favorite', (request, response, next) => {
-    console.log("User " + request.body.memberId1 + " Favor " + request.body.memberId2);
-    if(!request.body.memberId1 || !request.body.memberId2) {
+router.post('/favorite/:memberId?', (request, response, next) => {
+    console.log("User " + request.decoded.memberId + " Favor " + request.params.memberId);
+    if(!request.params.memberId) {
         response.status(400).send({
             message: "Missing Required Information"
         })
-    } else if (isNaN(request.body.memberId1) || isNaN(request.body.memberId2)) {
+    } else if (isNaN(request.params.memberId)) {
         response.status(400).send({
             message: "MemberID must be a number"
         })
@@ -226,8 +232,7 @@ router.post('/favorite', (request, response, next) => {
     }
 }, (request, response) => {
     let query = 'UPDATE Contacts SET Favorite = 1 WHERE MemberID_A = $1 AND MemberID_B = $2'
-    let values = [request.body.memberId1, request.body.memberId2]
-
+    let values = [request.decoded.memberid, request.params.memberId]
     pool.query(query, values).then(result => {
         if (result.rowCount == 0) {
             response.status(404).send({
