@@ -147,8 +147,10 @@ router.delete("/contact/:memberId?", (request, response, next) => {
  * 
  * @apiSuccess {Object[]} request List of contact
  * 
- * @apiError (404: memberId Not Found) {String} message "no friend request"
+ * @apiError (400: Missing Params) {String} message "Missing Required Information"
+ * @apiError (400: Bad Token) {String} message "MemberID must be a number"
  * 
+ * @apiError (404: memberId Not Found) {String} message "no friend request"
  * @apiError (400: SQL Error) {String} message the reported SQL error details
  * 
  * @apiUse JSONError
@@ -208,16 +210,20 @@ router.get("/requestlist", (request, response, next) => {
  * 
  * @apiDescription alter value on favorite column of contacts to 1 if user choose to favorite a person on their contact list
  * 
+ * @apiError (400: Missing Params) {String} message "Missing Required Information"
+ * @apiError (400: Bad Token) {String} message "MemberID must be a number"
+ * 
+ * 
  * @apiSuccess success: true
  * @apiError (400: SQL Error) catch by SQL Error
  */
-router.post('/favorite', (request, response, next) => {
-    console.log("User " + request.body.memberId1 + " Favor " + request.body.memberId2);
-    if(!request.body.memberId1 || !request.body.memberId2) {
+router.post('/favorite/:memberId?', (request, response, next) => {
+    console.log("User " + request.decoded.memberId + " Favor " + request.params.memberId);
+    if(!request.params.memberId) {
         response.status(400).send({
             message: "Missing Required Information"
         })
-    } else if (isNaN(request.body.memberId1) || isNaN(request.body.memberId2)) {
+    } else if (isNaN(request.params.memberId)) {
         response.status(400).send({
             message: "MemberID must be a number"
         })
@@ -226,8 +232,7 @@ router.post('/favorite', (request, response, next) => {
     }
 }, (request, response) => {
     let query = 'UPDATE Contacts SET Favorite = 1 WHERE MemberID_A = $1 AND MemberID_B = $2'
-    let values = [request.body.memberId1, request.body.memberId2]
-
+    let values = [request.decoded.memberid, request.params.memberId]
     pool.query(query, values).then(result => {
         if (result.rowCount == 0) {
             response.status(404).send({
@@ -248,5 +253,69 @@ router.post('/favorite', (request, response, next) => {
     })
 })
 
+/**
+ * @api {get} /contacts Request to get list of favorite contact 
+ * @apiName GetContacts
+ * @apiGroup Contacts
+ * 
+ * @apiDescription Request to get list of contacts
+ * 
+ * @apiSuccess {Object[]} contacts List of contacts
+ * 
+ * @apiError (404: memberId Not Found) {String} message "member ID Not Found"
+ * 
+ * @apiError (400: SQL Error) {String} message the reported SQL error details
+ * 
+ * @apiUse JSONError
+ */
+router.get("/favorite", (request, response, next) => {
+    console.log("/contact");
+    if (!request.decoded.memberid) {
+        response.status(400).send({
+            message: "Missing required information"
+        })
+    } else if (isNaN(request.decoded.memberid)) {
+        response.status(400).send({
+            message: "Malformed parameter. memberId must be a number"
+        })
+    } else {
+        next()
+    }
+}, (request, response) => {
+    //Get contact info
+    let query = 'SELECT Favorite, Verified, MemberID_B, Members.FirstName, Members.LastName, Members.email, Members.Username FROM Contacts INNER JOIN Members ON Contacts.MemberID_B = Members.MemberID where Contacts.MemberID_A = $1'
+    let values = [request.decoded.memberid]
 
+    pool.query(query, values)
+        .then(result => {
+            if (result.rowCount == 0) {
+                response.status(404).send({
+                    message: "no contacts"
+                })
+            } else {
+                let listContacts = [];
+                result.rows.forEach(entry =>
+                    listContacts.push(
+                        {
+                            "email": entry.email,
+                            "firstName": entry.firstname,
+                            "lastName": entry.lastname,
+                            "userName": entry.username,
+                            "memberId": entry.memberid_b,
+                            "favorite": entry.favorite
+                        }
+                    )
+                )
+                response.send({
+                    success: true,
+                    contacts: listContacts
+                })
+            }
+        }).catch(error => {
+            response.status(400).send({
+                message: "SQL Error",
+                error: error
+            })
+        })
+});
 module.exports = router
