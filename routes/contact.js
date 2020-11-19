@@ -212,7 +212,7 @@ router.get("/requestlist", (request, response, next) => {
  * @apiError (400: SQL Error) catch by SQL Error
  */
 router.post('/favorite', (request, response, next) => {
-    console.log("User " + request.decoded.memberId + "Favor " + request.body.memberId);
+    console.log("User " + request.body.memberId1 + "Favor " + request.body.memberId2);
     if(!request.body.memberId) {
         response.status(400).send({
             message: "Missing Required Information"
@@ -226,7 +226,7 @@ router.post('/favorite', (request, response, next) => {
     }
 }, (request, response) => {
     let query = 'UPDATE Contacts SET Favorite = 1 WHERE MemberID_A = $1 AND MemberID_B = $2'
-    let values = [request.decoded.memberid, request.body.memberid]
+    let values = [request.body.memberid1, request.body.memberid2]
 
     pool.query(query, values).then(result => {
         if (result.rowCount == 0) {
