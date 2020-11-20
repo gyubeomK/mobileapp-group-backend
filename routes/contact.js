@@ -328,12 +328,12 @@ router.get("/favorite", (request, response, next) => {
  * 
  * @apiDescription API to accept friend request changing verified in Contact tables from 0 to 1
  * 
- * @apiError (400 Missing Params) "Missing required information"
- * @apiError (400 Bad Token) "Malformed parameter. MemberID must be a number"
+ * @apiError (400 Missing Params) {String} message "Missing required information"
+ * @apiError (400 Bad Token) {String} message "Malformed parameter. MemberID must be a number"
  * 
  * @apiSuccess success:true
  * 
- * @apiError (400 SQL Error) catch by pool query
+ * @apiError (400: SQL Error) {String} message the reported SQL error details
  */
 router.post("/request/:memberId?", (request, response, next) => {
     console.log("User " + request.decoded.memberid + " accept " + request.params.memberId);
@@ -364,6 +364,19 @@ router.post("/request/:memberId?", (request, response, next) => {
     })
 })
 
+/**
+ * @api {post} /add
+ * @apiName addUser
+ * @apiGroup Contact
+ * 
+ * @apiDescription API to send friend request using username
+ * 
+ * @apiError (400 Missing Params) {message} "Missing required information"
+ * @apiError (404 Contact Exist) {message} "This username is already in your contact"
+ * 
+ * @apiSuccess success: true
+ * @apiError (400: SQL Error) {String} message the reported SQL error details
+ */
 router.post("/add", (request, response, next) => {
     console.log("User " + request.decoded.memberid + " Add " + request.body.userName)
     if (!request.body.userName) {
@@ -380,7 +393,7 @@ router.post("/add", (request, response, next) => {
 
     pool.query(check, values).then(result => {
         if (result.rowCount > 0) {
-            response.send({
+            response.status(404).send({
                 message: "This username is in your contact"
             })
         } else {
