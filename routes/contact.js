@@ -88,7 +88,7 @@ router.get("/", (request, response, next) => {
 /**
  * @api {delete} /contact/:memberId? to delete a user contact
  * @apiName deleteContact
- * @apiGroup Contact
+ * @apiGroup Contacts
  * 
  * @apiDescription send a signal to delete a contact with matching memberID
  * 
@@ -207,9 +207,11 @@ router.get("/requestlist", (request, response, next) => {
 
 
 /**
- * @api {post} /favorite 
+ * @api {post} /favorite Request to favorite a person
  * @apiName Favorite 
- * @apiGroup Contact
+ * @apiGroup Contacts
+ * 
+ * @apiParam {number} memberID
  * 
  * @apiDescription alter value on favorite column of contacts to 1 if user choose to favorite a person on their contact list
  * 
@@ -325,9 +327,11 @@ router.get("/favorite", (request, response, next) => {
 });
 
 /**
- * @api {post} /request/:memberId?
+ * @api {post} /request/:memberId? Accept friend request
  * @apiName acceptFriendRequest
  * @apiGroup Contact
+ * 
+ * @apiParam {number} memberID
  * 
  * @apiDescription API to accept friend request changing verified in Contact tables from 0 to 1
  * 
@@ -369,11 +373,12 @@ router.post("/request/:memberId?", (request, response, next) => {
 })
 
 /**
- * @api {post} /add
+ * @api {post} /add Send Friend Request to another user
  * @apiName addUser
- * @apiGroup Contact
+ * @apiGroup Contacts
  * 
  * @apiDescription API to send friend request using username
+ * 
  * 
  * @apiError (400 Missing Params) {String} message "Missing required information"
  * @apiError (404 Contact Exist) {String} message "This username is already in your contact"

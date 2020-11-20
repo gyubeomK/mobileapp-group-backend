@@ -870,6 +870,141 @@
             "field": "catch",
             "description": "<p>by SQL Error</p>"
           }
+        ],
+        "400: JSON Error": [
+          {
+            "group": "400: JSON Error",
+            "type": "String",
+            "optional": false,
+            "field": "message",
+            "description": "<p>&quot;malformed JSON in parameters&quot;</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "optional": false,
+            "field": "success:",
+            "description": "<p>true</p>"
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "routes/contact.js",
+    "groupTitle": "Contact"
+  },
+  {
+    "type": "post",
+    "url": "/request/:memberId?",
+    "title": "",
+    "name": "acceptFriendRequest",
+    "group": "Contact",
+    "description": "<p>API to accept friend request changing verified in Contact tables from 0 to 1</p>",
+    "error": {
+      "fields": {
+        "400 Missing Params": [
+          {
+            "group": "400 Missing Params",
+            "type": "String",
+            "optional": false,
+            "field": "message",
+            "description": "<p>&quot;Missing required information&quot;</p>"
+          }
+        ],
+        "400 Bad Token": [
+          {
+            "group": "400 Bad Token",
+            "type": "String",
+            "optional": false,
+            "field": "message",
+            "description": "<p>&quot;Malformed parameter. MemberID must be a number&quot;</p>"
+          }
+        ],
+        "400: SQL Error": [
+          {
+            "group": "400: SQL Error",
+            "type": "String",
+            "optional": false,
+            "field": "message",
+            "description": "<p>the reported SQL error details</p>"
+          }
+        ],
+        "400: JSON Error": [
+          {
+            "group": "400: JSON Error",
+            "type": "String",
+            "optional": false,
+            "field": "message",
+            "description": "<p>&quot;malformed JSON in parameters&quot;</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "optional": false,
+            "field": "success:true",
+            "description": ""
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "routes/contact.js",
+    "groupTitle": "Contact"
+  },
+  {
+    "type": "post",
+    "url": "/add",
+    "title": "",
+    "name": "addUser",
+    "group": "Contact",
+    "description": "<p>API to send friend request using username</p>",
+    "error": {
+      "fields": {
+        "400 Missing Params": [
+          {
+            "group": "400 Missing Params",
+            "type": "String",
+            "optional": false,
+            "field": "message",
+            "description": "<p>&quot;Missing required information&quot;</p>"
+          }
+        ],
+        "404 Contact Exist": [
+          {
+            "group": "404 Contact Exist",
+            "type": "String",
+            "optional": false,
+            "field": "message",
+            "description": "<p>&quot;This username is already in your contact&quot;</p>"
+          }
+        ],
+        "400: SQL Error": [
+          {
+            "group": "400: SQL Error",
+            "type": "String",
+            "optional": false,
+            "field": "message",
+            "description": "<p>the reported SQL error details</p>"
+          }
+        ],
+        "400: JSON Error": [
+          {
+            "group": "400: JSON Error",
+            "type": "String",
+            "optional": false,
+            "field": "message",
+            "description": "<p>&quot;malformed JSON in parameters&quot;</p>"
+          }
         ]
       }
     },
@@ -958,6 +1093,15 @@
             "optional": false,
             "field": "SQL",
             "description": "<p>error</p>"
+          }
+        ],
+        "400: JSON Error": [
+          {
+            "group": "400: JSON Error",
+            "type": "String",
+            "optional": false,
+            "field": "message",
+            "description": "<p>&quot;malformed JSON in parameters&quot;</p>"
           }
         ]
       }
