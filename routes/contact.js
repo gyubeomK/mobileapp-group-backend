@@ -375,8 +375,8 @@ router.post("/request/:memberId?", (request, response, next) => {
  * 
  * @apiDescription API to send friend request using username
  * 
- * @apiError (400 Missing Params) {message} "Missing required information"
- * @apiError (404 Contact Exist) {message} "This username is already in your contact"
+ * @apiError (400 Missing Params) {String} message "Missing required information"
+ * @apiError (404 Contact Exist) {String} message "This username is already in your contact"
  * 
  * @apiSuccess success: true
  * @apiError (400: SQL Error) {String} message the reported SQL error details
