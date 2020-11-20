@@ -365,7 +365,7 @@ router.post("/request/:memberId?", (request, response, next) => {
 })
 
 router.post("/add", (request, response, next) => {
-    console.log("User " + request.decoded.memberid + " Add " + request.body.memberId)
+    console.log("User " + request.decoded.memberid + " Add " + request.body.userName)
     if (!request.body.userName) {
         response.status(400).send({
             message: "Missing required information"
@@ -374,7 +374,7 @@ router.post("/add", (request, response, next) => {
         next()
     }
 }, (request, response) => {
-    let check = 'SELECT * FROM Contacts WHERE MemberID_A = $1 AND MemberID_B = $2'
+    var check = "SELECT * FROM Contacts WHERE MemberID_A = $1 AND (SELECT MemberID from Members WHERE Username = '$2')"
     var query = "INSERT INTO Contacts (MemberID_A, MemberID_B) VALUES ($1, (SELECT MemberID from Members WHERE Username = '$2'))"
     let values = [request.decoded.memberid, request.body.userName]
 
