@@ -5,6 +5,7 @@
  */
 
 const { response } = require('express')
+const e = require('express')
 
 //express is the framework we're going to use to handle requests
 const express = require('express')
@@ -362,4 +363,46 @@ router.post("/request/:memberId?", (request, response, next) => {
         })
     })
 })
+
+router.post("/add", (request, response, next) => {
+    console.log("User " + request.decoded.memberid + " Add " + request.body.memberId)
+    if (!request.body.memberId) {
+        response.status(400).send({
+            message: "Missing required information"
+        })
+    } else if (isNaN(request.body.memberId)) {
+        response.status(400).send({
+            message: "MemberID must be a number"
+        })
+    } else {
+        next()
+    }
+}, (request, response) => {
+    let check = 'SELECT * FROM Contacts WHERE MemberID_A = $1 and MemberID_B = $2'
+    let query = 'INSERT INTO Contacts (MemberID_A, MemberID_B) VALUES ($1, (SELECT MemberID from Members WHERE Username = $2))'
+    let values = [request.decoded.memberid, request.body.memberId]
+
+    pool.query(check, values).then(result => {
+        if (result.rowCount > 0) {
+            response.send({
+                message: "This username is in your contact"
+            })
+        } else {
+            pool.query(query, values).then(result => {
+               
+                response.send({
+                    success: true
+                })
+                
+            }).catch (error => {
+                response.status(400).send({
+                    message: "SQL Error",
+                    error: error
+                })
+            })
+        }
+    })
+})
+
+
 module.exports = router
