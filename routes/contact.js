@@ -101,6 +101,7 @@ router.get("/", (request, response, next) => {
  * @apiError (404: query return no row) {String} message "contact not found"
  * 
  * @apiError (400: SQL Error) {String} SQL error
+ * @apiUse JSONError
  */
 
 router.delete("/contact/:memberId?", (request, response, next) => {
@@ -218,6 +219,8 @@ router.get("/requestlist", (request, response, next) => {
  * 
  * @apiSuccess success: true
  * @apiError (400: SQL Error) catch by SQL Error
+ * 
+ * @apiUse JSONError
  */
 router.post('/favorite/:memberId?', (request, response, next) => {
     console.log("User " + request.decoded.memberid + " Favor " + request.params.memberId);
@@ -334,6 +337,7 @@ router.get("/favorite", (request, response, next) => {
  * @apiSuccess success:true
  * 
  * @apiError (400: SQL Error) {String} message the reported SQL error details
+ * @apiUse JSONError
  */
 router.post("/request/:memberId?", (request, response, next) => {
     console.log("User " + request.decoded.memberid + " accept " + request.params.memberId);
@@ -376,6 +380,8 @@ router.post("/request/:memberId?", (request, response, next) => {
  * 
  * @apiSuccess success: true
  * @apiError (400: SQL Error) {String} message the reported SQL error details
+ * 
+ * @apiUse JSONError
  */
 router.post("/add", (request, response, next) => {
     console.log("User " + request.decoded.memberid + " Add " + request.body.userName)
