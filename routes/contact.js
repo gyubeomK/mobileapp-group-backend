@@ -366,13 +366,9 @@ router.post("/request/:memberId?", (request, response, next) => {
 
 router.post("/add", (request, response, next) => {
     console.log("User " + request.decoded.memberid + " Add " + request.body.memberId)
-    if (!request.body.memberId) {
+    if (!request.body.userName) {
         response.status(400).send({
             message: "Missing required information"
-        })
-    } else if (isNaN(request.body.memberId)) {
-        response.status(400).send({
-            message: "MemberID must be a number"
         })
     } else {
         next()
