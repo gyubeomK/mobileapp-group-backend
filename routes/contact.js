@@ -329,7 +329,7 @@ router.get("/favorite", (request, response, next) => {
 /**
  * @api {post} /request/:memberId? Accept friend request
  * @apiName acceptFriendRequest
- * @apiGroup Contact
+ * @apiGroup Contacts
  * 
  * @apiParam {number} memberID
  * 

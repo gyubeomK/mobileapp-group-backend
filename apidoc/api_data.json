@@ -838,72 +838,23 @@
   },
   {
     "type": "post",
-    "url": "/favorite",
-    "title": "",
-    "name": "Favorite",
-    "group": "Contact",
-    "description": "<p>alter value on favorite column of contacts to 1 if user choose to favorite a person on their contact list</p>",
-    "error": {
-      "fields": {
-        "400: Missing Params": [
-          {
-            "group": "400: Missing Params",
-            "type": "String",
-            "optional": false,
-            "field": "message",
-            "description": "<p>&quot;Missing Required Information&quot;</p>"
-          }
-        ],
-        "400: Bad Token": [
-          {
-            "group": "400: Bad Token",
-            "type": "String",
-            "optional": false,
-            "field": "message",
-            "description": "<p>&quot;MemberID must be a number&quot;</p>"
-          }
-        ],
-        "400: SQL Error": [
-          {
-            "group": "400: SQL Error",
-            "optional": false,
-            "field": "catch",
-            "description": "<p>by SQL Error</p>"
-          }
-        ],
-        "400: JSON Error": [
-          {
-            "group": "400: JSON Error",
-            "type": "String",
-            "optional": false,
-            "field": "message",
-            "description": "<p>&quot;malformed JSON in parameters&quot;</p>"
-          }
-        ]
-      }
-    },
-    "success": {
-      "fields": {
-        "Success 200": [
-          {
-            "group": "Success 200",
-            "optional": false,
-            "field": "success:",
-            "description": "<p>true</p>"
-          }
-        ]
-      }
-    },
-    "version": "0.0.0",
-    "filename": "routes/contact.js",
-    "groupTitle": "Contact"
-  },
-  {
-    "type": "post",
     "url": "/request/:memberId?",
-    "title": "",
+    "title": "Accept friend request",
     "name": "acceptFriendRequest",
     "group": "Contact",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "number",
+            "optional": false,
+            "field": "memberID",
+            "description": ""
+          }
+        ]
+      }
+    },
     "description": "<p>API to accept friend request changing verified in Contact tables from 0 to 1</p>",
     "error": {
       "fields": {
@@ -963,38 +914,50 @@
   },
   {
     "type": "post",
-    "url": "/add",
-    "title": "",
-    "name": "addUser",
-    "group": "Contact",
-    "description": "<p>API to send friend request using username</p>",
+    "url": "/favorite",
+    "title": "Request to favorite a person",
+    "name": "Favorite",
+    "group": "Contacts",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "number",
+            "optional": false,
+            "field": "memberID",
+            "description": ""
+          }
+        ]
+      }
+    },
+    "description": "<p>alter value on favorite column of contacts to 1 if user choose to favorite a person on their contact list</p>",
     "error": {
       "fields": {
-        "400 Missing Params": [
+        "400: Missing Params": [
           {
-            "group": "400 Missing Params",
+            "group": "400: Missing Params",
             "type": "String",
             "optional": false,
             "field": "message",
-            "description": "<p>&quot;Missing required information&quot;</p>"
+            "description": "<p>&quot;Missing Required Information&quot;</p>"
           }
         ],
-        "404 Contact Exist": [
+        "400: Bad Token": [
           {
-            "group": "404 Contact Exist",
+            "group": "400: Bad Token",
             "type": "String",
             "optional": false,
             "field": "message",
-            "description": "<p>&quot;This username is already in your contact&quot;</p>"
+            "description": "<p>&quot;MemberID must be a number&quot;</p>"
           }
         ],
         "400: SQL Error": [
           {
             "group": "400: SQL Error",
-            "type": "String",
             "optional": false,
-            "field": "message",
-            "description": "<p>the reported SQL error details</p>"
+            "field": "catch",
+            "description": "<p>by SQL Error</p>"
           }
         ],
         "400: JSON Error": [
@@ -1022,93 +985,7 @@
     },
     "version": "0.0.0",
     "filename": "routes/contact.js",
-    "groupTitle": "Contact"
-  },
-  {
-    "type": "delete",
-    "url": "/contact/:memberId?",
-    "title": "to delete a user contact",
-    "name": "deleteContact",
-    "group": "Contact",
-    "description": "<p>send a signal to delete a contact with matching memberID</p>",
-    "parameter": {
-      "fields": {
-        "Parameter": [
-          {
-            "group": "Parameter",
-            "type": "number",
-            "optional": false,
-            "field": "memberID",
-            "description": ""
-          }
-        ]
-      }
-    },
-    "success": {
-      "fields": {
-        "Success 200": [
-          {
-            "group": "Success 200",
-            "type": "boolean",
-            "optional": false,
-            "field": "true",
-            "description": "<p>if the contact is found and deleted</p>"
-          }
-        ]
-      }
-    },
-    "error": {
-      "fields": {
-        "400: Missing Params": [
-          {
-            "group": "400: Missing Params",
-            "type": "String",
-            "optional": false,
-            "field": "message",
-            "description": "<p>&quot;Missing required information&quot;</p>"
-          }
-        ],
-        "400: Bad Token": [
-          {
-            "group": "400: Bad Token",
-            "type": "String",
-            "optional": false,
-            "field": "message",
-            "description": "<p>&quot;MemberId must be a number&quot;</p>"
-          }
-        ],
-        "404: query return no row": [
-          {
-            "group": "404: query return no row",
-            "type": "String",
-            "optional": false,
-            "field": "message",
-            "description": "<p>&quot;contact not found&quot;</p>"
-          }
-        ],
-        "400: SQL Error": [
-          {
-            "group": "400: SQL Error",
-            "type": "String",
-            "optional": false,
-            "field": "SQL",
-            "description": "<p>error</p>"
-          }
-        ],
-        "400: JSON Error": [
-          {
-            "group": "400: JSON Error",
-            "type": "String",
-            "optional": false,
-            "field": "message",
-            "description": "<p>&quot;malformed JSON in parameters&quot;</p>"
-          }
-        ]
-      }
-    },
-    "version": "0.0.0",
-    "filename": "routes/contact.js",
-    "groupTitle": "Contact"
+    "groupTitle": "Contacts"
   },
   {
     "type": "get",
@@ -1203,6 +1080,155 @@
             "optional": false,
             "field": "message",
             "description": "<p>the reported SQL error details</p>"
+          }
+        ],
+        "400: JSON Error": [
+          {
+            "group": "400: JSON Error",
+            "type": "String",
+            "optional": false,
+            "field": "message",
+            "description": "<p>&quot;malformed JSON in parameters&quot;</p>"
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "routes/contact.js",
+    "groupTitle": "Contacts"
+  },
+  {
+    "type": "post",
+    "url": "/add",
+    "title": "Send Friend Request to another user",
+    "name": "addUser",
+    "group": "Contacts",
+    "description": "<p>API to send friend request using username</p>",
+    "error": {
+      "fields": {
+        "400 Missing Params": [
+          {
+            "group": "400 Missing Params",
+            "type": "String",
+            "optional": false,
+            "field": "message",
+            "description": "<p>&quot;Missing required information&quot;</p>"
+          }
+        ],
+        "404 Contact Exist": [
+          {
+            "group": "404 Contact Exist",
+            "type": "String",
+            "optional": false,
+            "field": "message",
+            "description": "<p>&quot;This username is already in your contact&quot;</p>"
+          }
+        ],
+        "400: SQL Error": [
+          {
+            "group": "400: SQL Error",
+            "type": "String",
+            "optional": false,
+            "field": "message",
+            "description": "<p>the reported SQL error details</p>"
+          }
+        ],
+        "400: JSON Error": [
+          {
+            "group": "400: JSON Error",
+            "type": "String",
+            "optional": false,
+            "field": "message",
+            "description": "<p>&quot;malformed JSON in parameters&quot;</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "optional": false,
+            "field": "success:",
+            "description": "<p>true</p>"
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "routes/contact.js",
+    "groupTitle": "Contacts"
+  },
+  {
+    "type": "delete",
+    "url": "/contact/:memberId?",
+    "title": "to delete a user contact",
+    "name": "deleteContact",
+    "group": "Contacts",
+    "description": "<p>send a signal to delete a contact with matching memberID</p>",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "number",
+            "optional": false,
+            "field": "memberID",
+            "description": ""
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "boolean",
+            "optional": false,
+            "field": "true",
+            "description": "<p>if the contact is found and deleted</p>"
+          }
+        ]
+      }
+    },
+    "error": {
+      "fields": {
+        "400: Missing Params": [
+          {
+            "group": "400: Missing Params",
+            "type": "String",
+            "optional": false,
+            "field": "message",
+            "description": "<p>&quot;Missing required information&quot;</p>"
+          }
+        ],
+        "400: Bad Token": [
+          {
+            "group": "400: Bad Token",
+            "type": "String",
+            "optional": false,
+            "field": "message",
+            "description": "<p>&quot;MemberId must be a number&quot;</p>"
+          }
+        ],
+        "404: query return no row": [
+          {
+            "group": "404: query return no row",
+            "type": "String",
+            "optional": false,
+            "field": "message",
+            "description": "<p>&quot;contact not found&quot;</p>"
+          }
+        ],
+        "400: SQL Error": [
+          {
+            "group": "400: SQL Error",
+            "type": "String",
+            "optional": false,
+            "field": "SQL",
+            "description": "<p>error</p>"
           }
         ],
         "400: JSON Error": [
