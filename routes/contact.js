@@ -378,7 +378,7 @@ router.post("/add", (request, response, next) => {
         next()
     }
 }, (request, response) => {
-    let check = 'SELECT * FROM Contacts WHERE MemberID_A = $1 and MemberID_B = $2'
+    let check = 'SELECT * FROM Contacts WHERE MemberID_A = $1 AND MemberID_B = $2'
     let query = 'INSERT INTO Contacts (MemberID_A, MemberID_B) VALUES ($1, (SELECT MemberID from Members WHERE Username = $2))'
     let values = [request.decoded.memberid, request.body.memberId]
 
