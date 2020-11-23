@@ -358,9 +358,11 @@ router.post("/request/:memberId?", (request, response, next) => {
     }
 }, (request, response) => {
     let query = 'UPDATE Contacts SET Verified = 1 WHERE MemberID_A = $1 AND MemberID_B = $2'
+    let query2 = 'UPDATE Contacts SET Verified = 1 WHERE MemberID_B = $1 AND MemberID_A = $2'
     let values = [request.decoded.memberid, request.params.memberId]
 
     pool.query(query, values).then(result => {
+        pool.query(query2, values)
         response.send({
             success: true
         })
