@@ -838,82 +838,6 @@
   },
   {
     "type": "post",
-    "url": "/request/:memberId?",
-    "title": "Accept friend request",
-    "name": "acceptFriendRequest",
-    "group": "Contact",
-    "parameter": {
-      "fields": {
-        "Parameter": [
-          {
-            "group": "Parameter",
-            "type": "number",
-            "optional": false,
-            "field": "memberID",
-            "description": ""
-          }
-        ]
-      }
-    },
-    "description": "<p>API to accept friend request changing verified in Contact tables from 0 to 1</p>",
-    "error": {
-      "fields": {
-        "400 Missing Params": [
-          {
-            "group": "400 Missing Params",
-            "type": "String",
-            "optional": false,
-            "field": "message",
-            "description": "<p>&quot;Missing required information&quot;</p>"
-          }
-        ],
-        "400 Bad Token": [
-          {
-            "group": "400 Bad Token",
-            "type": "String",
-            "optional": false,
-            "field": "message",
-            "description": "<p>&quot;Malformed parameter. MemberID must be a number&quot;</p>"
-          }
-        ],
-        "400: SQL Error": [
-          {
-            "group": "400: SQL Error",
-            "type": "String",
-            "optional": false,
-            "field": "message",
-            "description": "<p>the reported SQL error details</p>"
-          }
-        ],
-        "400: JSON Error": [
-          {
-            "group": "400: JSON Error",
-            "type": "String",
-            "optional": false,
-            "field": "message",
-            "description": "<p>&quot;malformed JSON in parameters&quot;</p>"
-          }
-        ]
-      }
-    },
-    "success": {
-      "fields": {
-        "Success 200": [
-          {
-            "group": "Success 200",
-            "optional": false,
-            "field": "success:true",
-            "description": ""
-          }
-        ]
-      }
-    },
-    "version": "0.0.0",
-    "filename": "routes/contact.js",
-    "groupTitle": "Contact"
-  },
-  {
-    "type": "post",
     "url": "/favorite",
     "title": "Request to favorite a person",
     "name": "Favorite",
@@ -1089,6 +1013,82 @@
             "optional": false,
             "field": "message",
             "description": "<p>&quot;malformed JSON in parameters&quot;</p>"
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "routes/contact.js",
+    "groupTitle": "Contacts"
+  },
+  {
+    "type": "post",
+    "url": "/request/:memberId?",
+    "title": "Accept friend request",
+    "name": "acceptFriendRequest",
+    "group": "Contacts",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "number",
+            "optional": false,
+            "field": "memberID",
+            "description": ""
+          }
+        ]
+      }
+    },
+    "description": "<p>API to accept friend request changing verified in Contact tables from 0 to 1</p>",
+    "error": {
+      "fields": {
+        "400 Missing Params": [
+          {
+            "group": "400 Missing Params",
+            "type": "String",
+            "optional": false,
+            "field": "message",
+            "description": "<p>&quot;Missing required information&quot;</p>"
+          }
+        ],
+        "400 Bad Token": [
+          {
+            "group": "400 Bad Token",
+            "type": "String",
+            "optional": false,
+            "field": "message",
+            "description": "<p>&quot;Malformed parameter. MemberID must be a number&quot;</p>"
+          }
+        ],
+        "400: SQL Error": [
+          {
+            "group": "400: SQL Error",
+            "type": "String",
+            "optional": false,
+            "field": "message",
+            "description": "<p>the reported SQL error details</p>"
+          }
+        ],
+        "400: JSON Error": [
+          {
+            "group": "400: JSON Error",
+            "type": "String",
+            "optional": false,
+            "field": "message",
+            "description": "<p>&quot;malformed JSON in parameters&quot;</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "optional": false,
+            "field": "success:true",
+            "description": ""
           }
         ]
       }
