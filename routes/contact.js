@@ -400,6 +400,7 @@ router.post("/add", (request, response, next) => {
 }, (request, response) => {
     let check = 'SELECT * FROM Contacts WHERE MemberID_A = $1 AND MemberID_B = (SELECT MemberID from Members WHERE Username = $2)'
     let query = 'INSERT INTO Contacts (MemberID_B, MemberID_A) VALUES ($1, (SELECT MemberID from Members WHERE Username = $2))'
+    let query2 = 'INSERT INTO Contacts (MemberID_A, MemberID_B, Verified) VALUES ($1, (SELECT MemberID from Members WHERE Username = $2), 2)'
     let values = [request.decoded.memberid, request.body.userName]
 
     pool.query(check, values).then(result => {
@@ -409,7 +410,8 @@ router.post("/add", (request, response, next) => {
             })
         } else {
             pool.query(query, values).then(result => {
-               
+                pool.query(query2, values)
+    
                 response.send({
                     success: true
                 })
