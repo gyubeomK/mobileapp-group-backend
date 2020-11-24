@@ -30,8 +30,6 @@ app.use('/fiveday', require('./routes/fiveday.js'))
 
 app.use('/twelvehour', require('./routes/twelvehour.js'))
 
-
-
 /*
  * This middleware function will respond to inproperly formed JSON in 
  * request parameters.
