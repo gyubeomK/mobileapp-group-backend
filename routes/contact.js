@@ -410,7 +410,11 @@ router.post('/favorite/delete/:memberId?', (request, response, next) => {
     let values = [request.decoded.memberId, request.params.memberId]
 
     pool.query(query, values).then(result => {
-        if (result.rowCount > 0) {
+        if (result.rowCount < 0) {
+            response.send({
+                success: false
+            })
+        } else {
             response.send({
                 success: true
             })
