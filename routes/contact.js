@@ -392,7 +392,7 @@ router.post("/request/:memberId?", (request, response, next) => {
  * @apiUse JSONError
  * 
  */
-router.post('/favorite/delete/:?=memberId', (request, response, next) => {
+router.post('/favorite/delete/:memberId?', (request, response, next) => {
     console.log("User" + request.decoded.memberId + " un-favorite " + request.params.memberId);
     if (!request.params.memberId) {
         response.status(400).send({
