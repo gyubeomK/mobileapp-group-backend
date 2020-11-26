@@ -393,7 +393,7 @@ router.post("/request/:memberId?", (request, response, next) => {
  * 
  */
 router.post('/favorite/delete/:memberId?', (request, response, next) => {
-    console.log("User" + request.decoded.memberId + " un-favorite " + request.params.memberId);
+    console.log("User" + request.decoded.memberid + " un-favorite " + request.params.memberId);
     if (!request.params.memberId) {
         response.status(400).send({
             message: "Missing required information"
