@@ -393,7 +393,7 @@ router.post("/request/:memberId?", (request, response, next) => {
  * 
  */
 router.post('/favorite/delete/:memberId?', (request, response, next) => {
-    console.log("User" + request.decoded.memberId + "un-favorite" + request.params.memberId);
+    console.log("User" + request.decoded.memberId + " un-favorite " + request.params.memberId);
     if (!request.params.memberId) {
         response.status(400).send({
             message: "Missing required information"
@@ -410,9 +410,11 @@ router.post('/favorite/delete/:memberId?', (request, response, next) => {
     let values = [request.decoded.memberId, request.params.memberId]
 
     pool.query(query, values).then(result => {
-        response.send({
-            success: true
-        })
+        if (result.rowCount > 0) {
+            response.send({
+                success: true
+            })
+        } 
     }).catch(error => {
         response.status(400).send({
             message: "SQL Error",
