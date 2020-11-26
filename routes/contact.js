@@ -375,6 +375,53 @@ router.post("/request/:memberId?", (request, response, next) => {
 })
 
 /**
+ * @api {post} /favorite/delete/:memberId? un-favorite a contact
+ * @apiName deleteFavorite
+ * @apiGroup Contacts
+ * 
+ * @apiParam {number} memberID
+ * 
+ * @apiDescription Unfavorite a contact by setting the according favorite column value to 0.
+ * 
+ * @apiError (400 Missing Params) {String} message "Missing required information"
+ * @apiError (400 Bad Token) {String} message "Malformed parameter. MemberID must be a number"
+ * 
+ * @apiSuccess success:true
+ * 
+ * @apiError (400: SQL Error) {String} message the reported SQL error details
+ * @apiUse JSONError
+ * 
+ */
+router.post('/favorite/delete/:memberId?', (request, response, next) => {
+    console.log("User" + request.decoded.memberId + "un-favorite" + request.params.memberId);
+    if (!request.params.memberId) {
+        response.status(400).send({
+            message: "Missing required information"
+        })
+    } else if (isNaN(request.params.memberId)) {
+        response.status(400).send({
+            message: "Malformed Parameter. MemberID must be a number"
+        })
+    } else {
+        next()
+    }
+}, (request, response) => {
+    let query = 'UPDATE Contacts SET Favorite = 0 WHERE MemberID_A = $1 AND MemberID_B = $2'
+    let values = [request.decoded.memberId, request.params.memberId]
+
+    pool.query(query, values).then(result => {
+        response.send({
+            success: true
+        })
+    }).catch(error => {
+        response.status(400).send({
+            message: "SQL Error",
+            error: error
+        })
+    })
+})
+
+/**
  * @api {post} /add Send Friend Request to another user
  * @apiName addUser
  * @apiGroup Contacts
