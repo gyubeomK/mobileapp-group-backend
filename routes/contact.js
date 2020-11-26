@@ -119,6 +119,7 @@ router.delete("/contact/:memberId?", (request, response, next) => {
     }
 }, (request, response) => {
     let query = 'DELETE FROM Contacts WHERE MemberID_A = $1 and MemberID_B = $2'
+    let query2 = 'DELETE FROM Contacts WHERE MemberID_A = $2 and MemberID_B = $1'
     let values = [request.decoded.memberid, request.params.memberId]
 
     pool.query(query, values).then(result => {
@@ -127,6 +128,7 @@ router.delete("/contact/:memberId?", (request, response, next) => {
                 message: "contact not found"
             })
         } else {
+            pool.query(query2, values)
             response.send({
                 success: true
             })
