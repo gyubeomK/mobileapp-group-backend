@@ -509,8 +509,8 @@ router.post('/decline', (request, response, next) => {
         next()
     }
 }, (request, response) => {
-    let query = 'DELETE FROM Contacts WHERE MemberID_A = (SELECT MemberID from Members WHERE Username = $2)'
-    let query2 = 'DELETE FROM Contacts WHERE MemberID_B = (SELECT MemberID from Members WHERE Username = $2)'
+    let query = 'DELETE FROM Contacts WHERE MemberID_A = (SELECT MemberID from Members WHERE Username = $2) AND MemberID_B = $1'
+    let query2 = 'DELETE FROM Contacts WHERE MemberID_B = (SELECT MemberID from Members WHERE Username = $2) AND MemberID_A = $1'
     let values = [request.decoded.memberid, request.body.userName]
     
     pool.query(query, values).then(
