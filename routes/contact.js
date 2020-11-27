@@ -457,10 +457,10 @@ router.post("/add", (request, response, next) => {
         next()
     }
 }, (request, response) => {
-    let check = 'SELECT * FROM Contacts WHERE MemberID_A = $1 AS INT AND MemberID_B = (SELECT MemberID FROM Members WHERE Username = $2)'
+    let check = 'SELECT * FROM Contacts WHERE MemberID_A = $1::int AND MemberID_B = (SELECT MemberID FROM Members WHERE Username = $2)'
     let check2 = 'SELECT * FROM Members WHERE Username = $2'
-    let query = 'INSERT INTO Contacts (MemberID_B, MemberID_A) VALUES ($1 AS INT, (SELECT MemberID FROM Members WHERE Username = $2))'
-    let query2 = 'INSERT INTO Contacts (MemberID_A, MemberID_B, Verified) VALUES ($1 AS INT, (SELECT MemberID FROM Members WHERE Username = $2), 2)'
+    let query = 'INSERT INTO Contacts (MemberID_B, MemberID_A) VALUES ($1::int, (SELECT MemberID FROM Members WHERE Username = $2))'
+    let query2 = 'INSERT INTO Contacts (MemberID_A, MemberID_B, Verified) VALUES ($1::int, (SELECT MemberID FROM Members WHERE Username = $2), 2)'
     let values = [request.decoded.memberid, request.body.userName]
 
     pool.query(check2, values).then(result => {
