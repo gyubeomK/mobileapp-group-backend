@@ -464,19 +464,8 @@ router.post("/add", (request, response, next) => {
     let values = [request.decoded.memberid, request.body.userName]
     let values2 = [request.body.userName]
 
-    pool.query(check2, values2).then(result => {
-        if (result.rowCount == 0) {
-            response.status(404).send({
-                message: "contact does not exist"
-            })
-        }
-    }).catch (error => {
-        response.status(400).send({
-            message: "SQL ERROR: " + error
-        })
-    })
 
-    /* pool.query(check2, values).then(result => {
+    pool.query(check2, values2).then(result => {
         if (result.rowCount == 0) {
             response.status(404).send({
                 message: "Contact does not exist"
@@ -506,7 +495,7 @@ router.post("/add", (request, response, next) => {
             message: "SQL Error 2 " + error,
             error: error
         })
-    }) */
+    }) 
 })
 
 
