@@ -457,31 +457,33 @@ router.post("/add", (request, response, next) => {
         next()
     }
 }, (request, response) => {
-    let check = 'SELECT * FROM Contacts WHERE MemberID_A = $1 AND MemberID_B = (SELECT MemberID from Members WHERE Username = $2)'
-    let query = 'INSERT INTO Contacts (MemberID_B, MemberID_A) VALUES ($1, (SELECT MemberID from Members WHERE Username = $2))'
-    let query2 = 'INSERT INTO Contacts (MemberID_A, MemberID_B, Verified) VALUES ($1, (SELECT MemberID from Members WHERE Username = $2), 2)'
+    let check = 'SELECT * FROM Contacts WHERE MemberID_A = $1 AND MemberID_B = (SELECT MemberID FROM Members WHERE Username = $2)'
+    let check2 = 'SELECT * FROM Members WHERE Username = $2'
+    let query = 'INSERT INTO Contacts (MemberID_B, MemberID_A) VALUES ($1, (SELECT MemberID FROM Members WHERE Username = $2))'
+    let query2 = 'INSERT INTO Contacts (MemberID_A, MemberID_B, Verified) VALUES ($1, (SELECT MemberID FROM Members WHERE Username = $2), 2)'
     let values = [request.decoded.memberid, request.body.userName]
 
     pool.query(check, values).then(result => {
         if (result.rowCount > 0) {
-            response.status(400).send({
+            response.status(404).send({
                 message: "This username is in your contact"
             })
         } else {
-            pool.query(query, values).then(
-                pool.query(query2, values),
-    
-                response.send({
-                    success: true
-                })
-            ).catch (error => {
-                response.status(400).send({
-                    message: "SQL Error",
-                    error: error
-                })
+            pool.query(check2, values).then(result => {
+                if (result.rowCount > 0) {
+                    pool.query(query, values)
+                    pool.query(query2, values)
+                    response.send({
+                        success: true
+                    })
+                } else {
+                    response.status(404).send({
+                        message: "Contact does not exist"
+                    })
+                }
             })
         }
-    }) .catch (error => {
+    }).catch (error => {
         response.status(400).send({
             message: "SQL Error",
             error: error
