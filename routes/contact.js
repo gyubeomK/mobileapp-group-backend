@@ -440,7 +440,8 @@ router.post('/favorite/delete/:memberId?', (request, response, next) => {
  * 
  * 
  * @apiError (400 Missing Params) {String} message "Missing required information"
- * @apiError (404 Contact Exist) {String} message "This username is already in your contact"
+ * @apiError (404 Contact Does Not Exists) {String} message "Contact does not exist"
+ * @apiError (404 Already Friends) {String} message "This username is in your contact"
  * 
  * @apiSuccess success: true
  * @apiError (400: SQL Error) {String} message the reported SQL error details
