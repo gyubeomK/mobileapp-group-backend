@@ -462,8 +462,9 @@ router.post("/add", (request, response, next) => {
     let query = 'INSERT INTO Contacts (MemberID_B, MemberID_A) VALUES ("$1"::int, (SELECT MemberID FROM Members WHERE Username = "$2"::text))'
     let query2 = 'INSERT INTO Contacts (MemberID_A, MemberID_B, Verified) VALUES ("$1"::int, (SELECT MemberID FROM Members WHERE Username = "$2"::text), 2)'
     let values = [request.decoded.memberid, request.body.userName]
+    let values2 = [request.body.userName]
 
-    pool.query(check2, values).then(result => {
+    pool.query(check2, values2).then(result => {
         if (result.rowCount == 0) {
             response.status(404).send({
                 message: "contact does not exist"
