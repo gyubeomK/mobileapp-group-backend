@@ -463,24 +463,29 @@ router.post("/add", (request, response, next) => {
     let query2 = "INSERT INTO Contacts (MemberID_A, MemberID_B, Verified) VALUES ($1, (SELECT MemberID FROM Members WHERE Username = $2), 2)"
     let values = [request.decoded.memberid, request.body.userName]
 
-    pool.query(check, values).then(result => {
+    pool.query(check2, values).then(result => {
         if (result.rowCount > 0) {
-            response.status(404).send({
-                message: "This username is in your contact"
-            })
-        } else {
-            pool.query(check2, values).then(result => {
+            pool.query(check, values).then(result => {
                 if (result.rowCount > 0) {
+                    response.status(404).send({
+                        message: "This username is in your contact"
+                    })
+                } else {
                     pool.query(query, values)
                     pool.query(query2, values)
                     response.send({
                         success: true
                     })
-                } else {
-                    response.status(404).send({
-                        message: "Contact does not exist"
-                    })
                 }
+            }).catch (error => {
+                response.status(400).send({
+                    message: "SQL Error",
+                    error: error
+                })
+            })
+        } else {
+            response.status(404).send({
+                message: "Contact does not exist"
             })
         }
     }).catch (error => {
@@ -489,7 +494,8 @@ router.post("/add", (request, response, next) => {
             error: error
         })
     })
-})
+
+
 
 /**
  * @api {post} /decline decline the friend request
