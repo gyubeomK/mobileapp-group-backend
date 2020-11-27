@@ -499,7 +499,7 @@ router.post("/add", (request, response, next) => {
  * 
  * @apiUse JSONError
  */
-route.post('/decline', (request, response, next) => {
+router.post('/decline', (request, response, next) => {
     console.log("User " + request.decoded.memberid + " Decline " + request.body.userName)
     if (!request.body.userName) {
         response.status(400).send({
@@ -513,12 +513,12 @@ route.post('/decline', (request, response, next) => {
     let query2 = 'DELETE FROM Contacts WHERE MemberID_B = (SELECT MemberID from Members WHERE Username = $2)'
     let values = [request.decoded.memberid, request.body.userName]
     
-    pool.query(query, values).then(result => {
+    pool.query(query, values).then(
         pool.query(query2, values),
         response.send({
             success: true
         })
-    }).catch (error => {
+    ).catch (error => {
         response.status(400).send({
             message: "SQL Error",
             error: error
