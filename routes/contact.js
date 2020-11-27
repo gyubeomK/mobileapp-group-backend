@@ -407,18 +407,18 @@ router.post("/add", (request, response, next) => {
 
     pool.query(check, values).then(result => {
         if (result.rowCount > 0) {
-            response.status(404).send({
+            response.status(400).send({
                 message: "This username is in your contact"
             })
         } else {
-            pool.query(query, values).then(result => {
-                pool.query(query2, values)
+            pool.query(query, values).then(
+                pool.query(query2, values),
     
                 response.send({
                     success: true
                 })
                 
-            }).catch (error => {
+            ).catch (error => {
                 response.status(400).send({
                     message: "SQL Error",
                     error: error
