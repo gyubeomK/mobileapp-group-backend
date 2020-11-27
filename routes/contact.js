@@ -459,8 +459,8 @@ router.post("/add", (request, response, next) => {
 }, (request, response) => {
     let check = 'SELECT * FROM Contacts WHERE MemberID_A = $1 AND MemberID_B = (SELECT MemberID FROM Members WHERE Username = $2)'
     let check2 = 'SELECT * FROM Members WHERE Username = $1'
-    let query = 'INSERT INTO Contacts (MemberID_B, MemberID_A) VALUES ("$1"::int, (SELECT MemberID FROM Members WHERE Username = "$2"::text))'
-    let query2 = 'INSERT INTO Contacts (MemberID_A, MemberID_B, Verified) VALUES ("$1"::int, (SELECT MemberID FROM Members WHERE Username = "$2"::text), 2)'
+    let query = 'INSERT INTO Contacts (MemberID_B, MemberID_A) VALUES ($1, (SELECT MemberID FROM Members WHERE Username = $2))'
+    let query2 = 'INSERT INTO Contacts (MemberID_A, MemberID_B, Verified) VALUES ($1, (SELECT MemberID FROM Members WHERE Username = $2), 2)'
     let values = [request.decoded.memberid, request.body.userName]
     let values2 = [request.body.userName]
 
