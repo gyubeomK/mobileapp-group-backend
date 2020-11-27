@@ -485,5 +485,45 @@ router.post("/add", (request, response, next) => {
     })
 })
 
+/**
+ * @api {post} /decline decline the friend request
+ * @apiName declineUser
+ * @apiGroup Contacts
+ * 
+ * @apiDescription API to decline a friend request using username
+ * 
+ * 
+ * @apiError (400 Missing Params) {String} message "Missing required information"
+ * 
+ * @apiError (400: SQL Error) {String} message the reported SQL error details
+ * 
+ * @apiUse JSONError
+ */
+route.post('/decline', (request, response, next) => {
+    console.log("User " + request.decoded.memberid + " Decline " + request.body.userName)
+    if (!request.body.userName) {
+        response.status(400).send({
+            message: "Missing required information"
+        })
+    } else {
+        next()
+    }
+}, (request, response) => {
+    let query = 'DELETE FROM Contacts WHERE MemberID_A = (SELECT MemberID from Members WHERE Username = $2)'
+    let query2 = 'DELETE FROM Contacts WHERE MemberID_B = (SELECT MemberID from Members WHERE Username = $2)'
+    let values = [request.decoded.memberid, request.body.userName]
+    
+    pool.query(query, values).then(
+        pool.query(query2, values),
+        response.send({
+            success: true
+        })
+    ).catch (error => {
+        response.status(400).send({
+            message: "SQL Error",
+            error: error
+        })
+    })
+})
 
 module.exports = router
