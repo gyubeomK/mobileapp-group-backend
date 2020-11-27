@@ -474,7 +474,6 @@ router.post("/add", (request, response, next) => {
                 response.send({
                     success: true
                 })
-                
             ).catch (error => {
                 response.status(400).send({
                     message: "SQL Error",
@@ -482,6 +481,11 @@ router.post("/add", (request, response, next) => {
                 })
             })
         }
+    }) .catch (error => {
+        response.status(400).send({
+            message: "SQL Error",
+            error: error
+        })
     })
 })
 
