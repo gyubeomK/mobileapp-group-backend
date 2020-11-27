@@ -453,6 +453,10 @@ router.post("/add", (request, response, next) => {
         response.status(400).send({
             message: "Missing required information"
         })
+    } else if (isNaN(request.decoded.memberid)) {
+        response.status(400).send({
+            message: "Malformed Parameter, MemberID must be a number"
+        })
     } else {
         next()
     }
