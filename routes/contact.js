@@ -483,14 +483,14 @@ router.post("/add", (request, response, next) => {
                 }
             }).catch (error => {
                 response.status(400).send({
-                    message: "SQL Error",
+                    message: "SQL Error 1",
                     error: error
                 })
             })
         }
     }).catch (error => {
         response.status(400).send({
-            message: "SQL Error",
+            message: "SQL Error 2",
             error: error
         })
     })
