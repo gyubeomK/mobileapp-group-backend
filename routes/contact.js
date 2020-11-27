@@ -453,18 +453,14 @@ router.post("/add", (request, response, next) => {
         response.status(400).send({
             message: "Missing required information"
         })
-    } else if (isNaN(request.decoded.memberid)) {
-        response.status(400).send({
-            message: "Malformed Parameter, MemberID must be a number"
-        })
     } else {
         next()
     }
 }, (request, response) => {
-    let check = 'SELECT * FROM Contacts WHERE MemberID_A = $1 AND MemberID_B = (SELECT MemberID FROM Members WHERE Username = $2)'
-    let check2 = 'SELECT * FROM Members WHERE Username = $2'
-    let query = 'INSERT INTO Contacts (MemberID_B, MemberID_A) VALUES ($1, (SELECT MemberID FROM Members WHERE Username = $2))'
-    let query2 = 'INSERT INTO Contacts (MemberID_A, MemberID_B, Verified) VALUES ($1, (SELECT MemberID FROM Members WHERE Username = $2), 2)'
+    let check = "SELECT * FROM Contacts WHERE MemberID_A = $1 AND MemberID_B = (SELECT MemberID FROM Members WHERE Username = $2)"
+    let check2 = "SELECT * FROM Members WHERE Username = $2"
+    let query = "INSERT INTO Contacts (MemberID_B, MemberID_A) VALUES ($1, (SELECT MemberID FROM Members WHERE Username = $2))"
+    let query2 = "INSERT INTO Contacts (MemberID_A, MemberID_B, Verified) VALUES ($1, (SELECT MemberID FROM Members WHERE Username = $2), 2)"
     let values = [request.decoded.memberid, request.body.userName]
 
     pool.query(check, values).then(result => {
