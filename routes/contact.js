@@ -128,9 +128,9 @@ router.delete("/contact/:memberId?", (request, response, next) => {
                 message: "contact not found"
             })
         } else {
-            if (result.rows[0][1] != 0) {
-                pool.query(query2, values)
-            }
+            
+            pool.query(query2, values)
+            
             response.send({
                 success: true
             })
