@@ -441,7 +441,7 @@ router.post('/favorite/delete/:memberId?', (request, response, next) => {
  * 
  * @apiError (400 Missing Params) {String} message "Missing required information"
  * @apiError (404 Contact Does Not Exists) {String} message "Contact does not exist"
- * @apiError (404 Already Friends) {String} message "This username is in your contact"
+ * @apiError (404 Already Friends) {String} message "This user in your list or request pending"
  * 
  * @apiSuccess success: true
  * @apiError (400: SQL Error) {String} message the reported SQL error details
@@ -475,7 +475,7 @@ router.post("/add", (request, response, next) => {
             pool.query(check, values).then(result => {
                 if (result.rowCount > 0) {
                     response.status(404).send({
-                        message: "This username is in your contact"
+                        message: "This user in your list or request pending"
                     })
                 } else {
                     pool.query(query, values)
