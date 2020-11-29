@@ -31,7 +31,7 @@ app.use('/fiveday', require('./routes/fiveday.js'))
 
 app.use('/twelvehour', require('./routes/twelvehour.js'))
 
-app.use('/pusher', middleware.checkToken, require('./routes/pusher'))
+app.use('/pusher', middleware.checkToken, require('./routes/pusher.js'))
 
 /*
  * This middleware function will respond to inproperly formed JSON in 
