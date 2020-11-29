@@ -95,10 +95,10 @@ router.get('/pusher/beams-auth', (request, response) => {
     const userId = theUserID // get it from your auth system
     const userIDInQueryParam = req.query['user_id'];
     if (userId != userIDInQueryParam) {
-      res.send(401, 'Inconsistent request');
+      response.send(401, 'Inconsistent request');
     } else {
       const beamsToken = beamsClient.generateToken(userId);
-      res.send(JSON.stringify(beamsToken));
+      response.send(JSON.stringify(beamsToken));
     }
   });
      
