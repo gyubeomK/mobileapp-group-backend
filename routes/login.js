@@ -3,7 +3,6 @@ const express = require('express')
 
 const PushNotifications = require('@pusher/push-notifications-server');
 
-let middleware = require('./utilities/middleware')
 
 const port = 8080;
 const app = express();
