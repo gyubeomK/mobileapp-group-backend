@@ -19,8 +19,8 @@ const PushNotifications = require('@pusher/push-notifications-server');
 const port = 8080;
 const app = express();
 const beamsClient = new PushNotifications({
-  instanceId: 'YOUR_INSTANCE_ID_HERE',
-  secretKey: 'YOUR_SECRET_KEY_HERE'
+  instanceId: 'c9680030-b0e8-4d56-a722-5d92adf8c303',
+  secretKey: '4E7868AEA87EFE9D3786A988AE6DAFC4856C3500650786959F8F5FFDB21D1A39'
 });
 
 router.get('/pusher/beams-auth', (request, response) => {
