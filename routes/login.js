@@ -1,16 +1,6 @@
 //express is the framework we're going to use to handle requests
 const express = require('express')
 
-const PushNotifications = require('@pusher/push-notifications-server');
-
-
-const port = 8080;
-const app = express();
-const beamsClient = new PushNotifications({
-    instanceId: 'c9680030-b0e8-4d56-a722-5d92adf8c303',
-    secretKey: '4E7868AEA87EFE9D3786A988AE6DAFC4856C3500650786959F8F5FFDB21D1A39'
-});
-
 //Access the connection to Heroku Database
 let pool = require('../utilities/utils').pool
 
@@ -96,14 +86,6 @@ router.get('/', (request, response) => {
                         memberid: result.rows[0].memberid,
                         username: result.rows[0].username
                     })
-                    const userId = result.rows[0].username
-                    const userIDInQueryParam = req.query['user_id'];
-                    if (userId != userIDInQueryParam) {
-                        response.send(401, 'Inconsistent request');
-                    } else {
-                        const beamsToken = beamsClient.generateToken(userId);
-                        response.send(JSON.stringify(beamsToken));
-                    }
                 } else {
                     //credentials dod not match
                     response.status(400).send({
