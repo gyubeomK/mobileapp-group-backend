@@ -23,12 +23,13 @@ const bodyParser = require("body-parser")
 router.use(bodyParser.json())
 
 //Pull in the JWT module along with out asecret key
-let jwt = require('jsonwebtoken')
+let jwt = require('jsonwebtoken');
+const { response } = require('express');
 let config = {
     secret: process.env.JSON_WEB_TOKEN
 }
 
-router.get('/pusher/beams-auth', function(request, response) {
+router.get('/pusher/beams-auth', (request, response) => {
     // Do your normal auth checks here 🔒
     if (!request.headers.authorization || request.headers.authorization.indexOf('Basic') == -1) {
         return response.status(401).json({message: 'Missing Authorization Header' })
@@ -100,6 +101,10 @@ router.get('/pusher/beams-auth', function(request, response) {
       const beamsToken = beamsClient.generateToken(userId);
       res.send(JSON.stringify(beamsToken));
     }
+  }).catch((err) => {
+      response.status(400).send({
+          message: err.detail
+      })
   });
      
 /**
