@@ -3,6 +3,8 @@ const express = require('express')
 
 const PushNotifications = require('@pusher/push-notifications-server');
 
+let middleware = require('./utilities/middleware')
+
 const port = 8080;
 const app = express();
 const beamsClient = new PushNotifications({
@@ -66,7 +68,7 @@ router.get('/pusher/beams-auth', function(request, response) {
                     },
                     config.secret,
                     {
-                        expiresIn: '1 days'
+                        expiresIn: '365 days'
                     }
                 )
                 //package and send the results
