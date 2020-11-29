@@ -23,8 +23,7 @@ const bodyParser = require("body-parser")
 router.use(bodyParser.json())
 
 //Pull in the JWT module along with out asecret key
-let jwt = require('jsonwebtoken');
-const { response } = require('express');
+let jwt = require('jsonwebtoken')
 let config = {
     secret: process.env.JSON_WEB_TOKEN
 }
@@ -101,10 +100,6 @@ router.get('/pusher/beams-auth', (request, response) => {
       const beamsToken = beamsClient.generateToken(userId);
       res.send(JSON.stringify(beamsToken));
     }
-  }).catch((err) => {
-      response.status(400).send({
-          message: err.detail
-      })
   });
      
 /**
