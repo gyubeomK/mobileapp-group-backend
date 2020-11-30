@@ -487,7 +487,7 @@ router.post("/add", (request, response, next) => {
                 } else {
                     pool.query(query, values)
                     pool.query(query2, values)
-                    beamsClient.publishToUsers(['user-001', 'user-002'], {
+                    beamsClient.publishToUsers([request.body.userName], {
                         fcm: {
                           notification: {
                             title: 'Contacts',
