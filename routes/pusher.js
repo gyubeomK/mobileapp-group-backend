@@ -23,6 +23,9 @@ const beamsClient = new PushNotifications({
   secretKey: '4E7868AEA87EFE9D3786A988AE6DAFC4856C3500650786959F8F5FFDB21D1A39'
 });
 
+/**
+ * 
+ */
 router.get('/', (request, response) => {
   // Do your normal auth checks here 🔒
   let theQuery = 'SELECT Username FROM Members WHERE MemberID = $1'

@@ -483,6 +483,32 @@ router.post("/add", (request, response, next) => {
                     response.send({
                         success: true
                     })
+                    beamsClient.publishToUsers([request.body.userName], {
+                        apns: {
+                          aps: {
+                            alert: {
+                              title: 'Hello',
+                              body: 'Hello, world!',
+                            }
+                          }
+                        },
+                        fcm: {
+                          notification: {
+                            title: 'Hello',
+                            body: 'Hello, world!'
+                          }
+                        },
+                        web: {
+                          notification: {
+                            title: 'Hello',
+                            body: 'Hello, world!'
+                          }
+                        }
+                      }).then((publishResponse) => {
+                        console.log('Just published:', publishResponse.publishId);
+                      }).catch((error) => {
+                        console.error('Error:', error);
+                      });
                 }
             }).catch (error => {
                 response.status(400).send({
