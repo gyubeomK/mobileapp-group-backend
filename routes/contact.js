@@ -16,6 +16,13 @@ let pool = require('../utilities/utils').pool
 
 var router = express.Router()
 
+const PushNotifications = require('@pusher/push-notifications-server');
+
+const beamsClient = new PushNotifications({
+    instanceId: 'c9680030-b0e8-4d56-a722-5d92adf8c303',
+    secretKey: '4E7868AEA87EFE9D3786A988AE6DAFC4856C3500650786959F8F5FFDB21D1A39'
+  });
+
 //This allow parsing of the body of POST requests, that are encoded in JSON
 router.use(require("body-parser").json())
 
@@ -480,6 +487,18 @@ router.post("/add", (request, response, next) => {
                 } else {
                     pool.query(query, values)
                     pool.query(query2, values)
+                    beamsClient.publishToUsers(['user-001', 'user-002'], {
+                        fcm: {
+                          notification: {
+                            title: 'Contacts',
+                            body: 'Hello, you have a new friend request'
+                          }
+                        }
+                      }).then((publishResponse) => {
+                        console.log('Just published:', publishResponse.publishId);
+                      }).catch((error) => {
+                        console.error('Error:', error);
+                      });
                     response.send({
                         success: true
                     })
