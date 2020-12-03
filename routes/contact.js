@@ -492,7 +492,8 @@ router.post("/add", (request, response, next) => {
                           notification: {
                             title: 'Contacts',
                             body: 'Hello, you have a new friend request'
-                          }
+                          },
+                          "priority" : 10
                         }
                       }).then((publishResponse) => {
                         console.log('Just published:', publishResponse.publishId);
