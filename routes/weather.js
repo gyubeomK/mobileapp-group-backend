@@ -14,6 +14,7 @@ router.get('/', function(request, response) {
         'units': 'metric',
     })
     .end(function(result) {
+        response.writeHead(200, {"Content-Type": "JSON"});
         response.write(result.body);
     })
 })
