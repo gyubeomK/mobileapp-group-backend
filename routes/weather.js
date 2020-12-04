@@ -11,10 +11,10 @@ router.get('/', function(request, response) {
         'appid' : '87778b361ce442fe8501b305005e67c6',
         'lon': '12.4924',
         'lat': '41.8902',
-        'units': 'metric',
+        'units': 'metric'
     })
     .end(function(result) {
-        response.writeHead(200, {"Content-Type": "JSON"});
+        response.writeHead(200, {"Content-Type": "text"});
         response.write(result.body);
     })
 })
