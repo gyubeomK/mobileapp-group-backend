@@ -33,7 +33,6 @@ app.use('/twelvehour', require('./routes/twelvehour.js'))
 
 app.use('/pusher', middleware.checkToken, require('./routes/pusher.js'))
 
-app.use('/weather', require('./routes/weather.js'))
 
 /*
  * This middleware function will respond to inproperly formed JSON in 
