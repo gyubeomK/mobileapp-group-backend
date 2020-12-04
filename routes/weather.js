@@ -14,7 +14,6 @@ router.get('/', function(request, response) {
         'units': 'metric'
     })
     .end(function(result) {
-        response.writeHead(200, {"Content-Type": "text"});
         response.write(result.body);
     })
 })
