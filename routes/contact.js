@@ -439,7 +439,7 @@ router.post('/favorite/delete/:memberId?', (request, response, next) => {
 })
 
 /**
- * @api {post} /add Send Friend Request to another user
+ * @api {post} /`add` Send Friend Request to another user
  * @apiName addUser
  * @apiGroup Contacts
  * 
@@ -489,7 +489,7 @@ router.post("/add", (request, response, next) => {
                     pool.query(query2, values)
                     beamsClient.publishToUsers([request.body.userName], {
                         fcm: {
-                          notification: {
+                          data: {
                             title: 'Contacts',
                             body: 'Hello, you have a new friend request'
                           }
