@@ -1,7 +1,7 @@
 var unirest = require('unirest');
 var express = require('express');
 
-var router = express.router()
+var router = express.Router()
 
 router.get('/', function(request, response) {
     unirest.get("https://community-open-weather-map.p.rapidapi.com/weather")
