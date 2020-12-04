@@ -489,9 +489,13 @@ router.post("/add", (request, response, next) => {
                     pool.query(query2, values)
                     beamsClient.publishToUsers([request.body.userName], {
                         fcm: {
-                          data: {
+                          notification: {
                             title: 'Contacts',
                             body: 'Hello, you have a new friend request'
+                          },
+                          data: {
+                              title: 'Contacts',
+                              body: "You have a new friend request"
                           }
                         }
                       }).then((publishResponse) => {
