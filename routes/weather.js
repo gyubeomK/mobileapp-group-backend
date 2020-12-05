@@ -6,11 +6,11 @@ var router = express.Router()
 const bodyParser = require('body-parser')
 router.use(bodyParser.urlencoded({extended: true}))
 
-router.get("/?q=:city?", (request, response) => {
+router.get("/", (request, response) => {
     const query = request.query.name
     console.log(query)
     let unit = "imperial"
-    const url = "https://api.openweathermap.org/data/2.5/weather?q="+request.params.city+"&units="+unit+"&appid="+API_KEY
+    const url = "https://api.openweathermap.org/data/2.5/weather?q="+query+"&units="+unit+"&appid="+API_KEY
     if (query) {
         https.get(url, (res) => {
             res.on('data', (data) => {
