@@ -7,7 +7,7 @@ const bodyParser = require('body-parser')
 router.use(bodyParser.urlencoded({extended: true}))
 
 router.get("/", (request, response) => {
-    const query = require.query.name
+    const query = request.query.name
     console.log(query)
     let unit = "imperial"
     const url = "https://api.openweathermap.org/data/2.5/weather?q="+query+"&units="+unit+"&appid=" + API_KEY
