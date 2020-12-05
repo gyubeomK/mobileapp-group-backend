@@ -1,21 +1,30 @@
-var unirest = require('unirest');
-var express = require('express');
+const express = require('express')
+const https = require('https')
+const API_KEY = '87778b361ce442fe8501b305005e67c6'
 
 var router = express.Router()
+const bodyParser = require('body-parser')
+router.use(bodyParser.urlencoded({extended: true}))
 
-router.get('/', function(request, response) {
-    unirest.get("https://community-open-weather-map.p.rapidapi.com/weather")
-    .header("X-RapidAPI-Key", "4165b5da19msh442263a57547cdap159f3cjsna1fc6e6389b6")
-    .header("x-rapidapi-host", "community-open-weather-map.p.rapidapi.com")
-    .query({
-        'appid' : 'default-application_4891802',
-        'lon': '12.4924',
-        'lat': '41.8902',
-        'units': 'metric'
-    })
-    .end(function(result) {
-        response.write(result.body);
-    })
+router.get("/", (request, response) => {
+    const query = require.query.name
+    console.log(query)
+    let unit = "imperial"
+    const url = "https://api.openweathermap.org/data/2.5/weather?q="+query+"&units="+unit+"&appid=" + API_KEY
+    if (query) {
+        https.get(url, (res) => {
+            res.on('data', (data) => {
+                const weather = JSON.parse(data)
+                response.send({
+                    weather
+                })
+            })
+        })
+    } else {
+        response.status(400).send({
+            message : "Missing required information"
+        })
+    }
 })
 
 module.exports = router
