@@ -1,4 +1,4 @@
-d/**
+/**
  * Weather API at https://api.openweathermap.org
  * @author Ford Nguyen
  * @version 1.0
@@ -9,7 +9,9 @@ const API_KEY = '87778b361ce442fe8501b305005e67c6'
 
 var router = express.Router()
 const bodyParser = require('body-parser')
-router.use(bodyParser.urlencoded({extended: true})/**
+router.use(bodyParser.urlencoded({extended: true}))
+
+/**
  * @api {get} /?:city=<city>
  * @apiName getWeatherCurrentUsingCity
  * @apiGroup Weather
