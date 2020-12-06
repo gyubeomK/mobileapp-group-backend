@@ -15,10 +15,10 @@ let getHash = require('../utilities/utils').getHash
 router.use(bodyParser.json())
 
 router.post('/', (request, response)=>{
-    let emial = request.body.email
+    let email = request.body.email
     let oldPassword = request.body.oldPassword
     let newPassword = equest.body.newPassword
-    if (!emial || !oldPassword|| !newPassword) {
+    if (!email || !oldPassword|| !newPassword) {
         response.status(400).send({
             message: "Missing required information"
         })
@@ -28,7 +28,7 @@ router.post('/', (request, response)=>{
 }, (request, response, next) => {
     //validate chat id exists
     let query = 'SELECT Password, Salt FROM Members WHERE Email=$1'
-    let values = [request.body.email]
+    let values = [email]
 
     pool.query(query, values)
         .then(result => {
@@ -70,4 +70,5 @@ router.post('/', (request, response)=>{
         }
     }
 )
+
 module.exports= router
