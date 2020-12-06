@@ -6,7 +6,6 @@ let pool = require('../utilities/utils').pool
 
 var router = express.Router()
 
-//This allows parsing of the body of POST requests, that are encoded in JSON
 router.use(require("body-parser").json())
 
 router.get("/", (request, response, next) => {
