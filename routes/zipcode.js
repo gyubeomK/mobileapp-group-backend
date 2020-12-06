@@ -32,7 +32,9 @@ router.get("/", (req, res) => {
             res.send(error)
         } else {
             
-            var n = body.indexOf("{")
+            //res.send(data)
+
+            var n = body.indexOf("\"")
             var nakidBody = body.substring(n - 1)
 
             res.send(nakidBody)
