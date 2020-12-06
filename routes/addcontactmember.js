@@ -90,7 +90,7 @@ router.put("/:chatId/:memberId", (request, response, next) => {
     let insert = `INSERT INTO ChatMembers(ChatId, MemberId)
                   VALUES ($1, $2)
                   RETURNING *`
-    let values = [request.params.chatId, request.decoded.memberid]
+    let values = [request.params.chatId, request.params.memberid]
     pool.query(insert, values)
         .then(result => {
             response.send({
