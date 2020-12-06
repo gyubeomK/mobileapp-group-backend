@@ -33,6 +33,8 @@ app.use('/twelvehour', require('./routes/twelvehour.js'))
 
 app.use('/pusher', middleware.checkToken, require('./routes/pusher.js'))
 
+app.use('/zipcode', require('./routes/zipcode.js'))
+
 app.use('/weather/current', require('./routes/weather.js'))
 
 /*
