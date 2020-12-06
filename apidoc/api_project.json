@@ -1,8 +1,8 @@
 {
-  "name": "Lab 4",
+  "name": "Group 1 App Backend",
   "version": "0.1.0",
-  "description": "The Lab 4 API Documentation",
-  "title": "Lab 4 API Doc",
+  "description": "The TCSS450 Mobile App Backend Documentation",
+  "title": "Group 1 API Doc",
   "url": "https://mobileapp-group-backend.herokuapp.com",
   "order": [
     "Hello",
