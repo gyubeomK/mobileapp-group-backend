@@ -32,13 +32,13 @@ router.get("/", (req, res) => {
             res.send(error)
         } else {
             
-            res.send(data)
+            //res.send(response)
 
-            //  var n = body
-            //  var nakidBody = n.substring(1, n.length-1)
+             var n = body
+             var nakidBody = n.substring(1, n.length-1)
 
-            //  res.send(JSON.parse(nakidBody))
-            // check
+             res.send(nakidBody)
+            
             
         }
     })
