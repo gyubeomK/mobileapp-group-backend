@@ -23,7 +23,7 @@ router.get("/", (req, res) => {
 
     const query = req.body.zipcode
 
-    let url = 'http://dataservice.accuweather.com/locations/v1/postalcodes/search?apikey=wmavaYAGO3U5RzR0zc1DSLaGPVL2zQ7z'+query
+    let url = 'http://dataservice.accuweather.com/locations/v1/postalcodes/search?apikey=wmavaYAGO3U5RzR0zc1DSLaGPVL2zQ7z&q='+query
 
     request(url, function (error, response, body) {
 
