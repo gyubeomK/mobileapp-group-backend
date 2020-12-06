@@ -37,7 +37,7 @@ router.get("/", (req, res) => {
              var n = body
              var nakidBody = n.substring(1, n.length-1)
 
-             res.send(nakidBody)
+             res.send(JSON.parse(nakidBody))
             
             
         }
