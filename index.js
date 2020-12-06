@@ -27,6 +27,8 @@ app.use('/contact', middleware.checkToken,require('./routes/contact.js'))
 
 app.use('/addcontactmember', middleware.checkToken,require('./routes/addcontactmember.js'))
 
+app.use('/password', middleware.checkToken,require('./routes/password.js'))
+
 app.use('/weather', require('./routes/currentweather.js'))
 
 app.use('/fiveday', require('./routes/fiveday.js'))
