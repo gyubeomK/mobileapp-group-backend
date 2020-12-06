@@ -87,10 +87,7 @@ router.post("/", (request, response, next) => {
  * 
  * @apiUse JSONError
  */ 
-router.put("/:chatId?/", (request, response, next) => {
-    console.log("PUT /chats/" + request.params.chatId);
-    console.log("Members body: " + request.body);
-
+router.put("/:chatId/", (request, response, next) => {
     //validate on empty parameters
     if (!request.params.chatId) {
         response.status(400).send({
@@ -98,11 +95,7 @@ router.put("/:chatId?/", (request, response, next) => {
         })
     } else if (isNaN(request.params.chatId)) {
         response.status(400).send({
-            message: "Malformed parameter. chatId must be a zzz number"
-        })
-    } else if (!request.body.members) {
-        response.status(400).send({
-            message: "Missing members body, Example members: [1, 2, 3]"
+            message: "Malformed parameter. chatId must be a number"
         })
     } else {
         next()
@@ -127,63 +120,68 @@ router.put("/:chatId?/", (request, response, next) => {
                 error: error
             })
         })
-}, (request, response) => {
-    console.log("Getting existing members");
-    // check which members exist
-    let query = 'SELECT MemberID FROM ChatMembers WHERE ChatId=$1'
-    let values = [request.params.chatId]
-    var existingMembers = [];
+        //code here based on the results of the query
+}, (request, response, next) => {
+    //validate email exists 
+    let query = 'SELECT * FROM Members WHERE MemberId=$1'
+    let values = [request.decoded.memberid]
+
     pool.query(query, values)
         .then(result => {
-            result.rows.forEach(entry =>
-                existingMembers.push(entry.memberid)
-            );
-
-
-            console.log("Members: " + request.body.members);
-            let addingMembers = request.body.members;
-            console.log("Current members in chat: " + existingMembers);
-            console.log("Members trying to add in chat: " + addingMembers);
-            // 2. Filter between the members already and the ones aren't
-            const notInChatMembers = addingMembers.filter(function (x) {
-                return existingMembers.indexOf(x) < 0;
-            });
-
-            
-            console.log("Not in chat: " + notInChatMembers);
-
-            var i = 0;
-            // Add all the notInChatMembers to chat
-            for (i = 0; i < notInChatMembers.length; i++) {
-
-                console.log("Adding: " + notInChatMembers[i]);
-                //Insert the memberId into the chat
-                let insert2 = `INSERT INTO ChatMembers(ChatId, MemberId)
-                  VALUES ($1, $2)
-                  RETURNING *`
-                let values2 = [request.params.chatId, notInChatMembers[i]]
-                pool.query(insert2, values2)
-                    .then(result => {
-                        console.log("Success added " + notInChatMembers[i]);
-                    }).catch(err => {
-                        response.status(400).send({
-                            message: "SQL Error, 1",
-                            error: err
-                        })
-                    })
+            if (result.rowCount == 0) {
+                response.status(404).send({
+                    message: "email not found"
+                })
+            } else {
+                //user found
+                next()
             }
-            // TODO call some backend method that sends a notification
-            response.send({
-                success: true
-            })
-
         }).catch(error => {
             response.status(400).send({
                 message: "SQL Error",
                 error: error
             })
         })
-});
+}, (request, response, next) => {
+        //validate email does not already exist in the chat
+        let query = 'SELECT * FROM ChatMembers WHERE ChatId=$1 AND MemberId=$2'
+        let values = [request.params.chatId, request.decoded.memberid]
+    
+        pool.query(query, values)
+            .then(result => {
+                if (result.rowCount > 0) {
+                    response.status(400).send({
+                        message: "user already joined"
+                    })
+                } else {
+                    next()
+                }
+            }).catch(error => {
+                response.status(400).send({
+                    message: "SQL Error",
+                    error: error
+                })
+            })
+
+}, (request, response) => {
+    //Insert the memberId into the chat
+    let insert = `INSERT INTO ChatMembers(ChatId, MemberId)
+                  VALUES ($1, $2)
+                  RETURNING *`
+    let values = [request.params.chatId, request.decoded.memberid]
+    pool.query(insert, values)
+        .then(result => {
+            response.send({
+                sucess: true
+            })
+        }).catch(err => {
+            response.status(400).send({
+                message: "SQL Error",
+                error: err
+            })
+        })
+    }
+)
 
 /**
  * @api {get} /chats/:chatId? Request to get the emails of user in a chat
