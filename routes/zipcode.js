@@ -19,7 +19,7 @@ var router = express.Router()
  * /currentconditions/v1/%7BlocationKey%7D">Accuweather documentation</a> for a list of optional
  * parameters and expected results.
  */
-router.get("/", (req, res) => {
+router.post("/", (req, res) => {
 
     const query = req.body.zipcode
 
