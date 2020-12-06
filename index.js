@@ -33,7 +33,13 @@ app.use('/twelvehour', require('./routes/twelvehour.js'))
 
 app.use('/pusher', middleware.checkToken, require('./routes/pusher.js'))
 
+<<<<<<< HEAD
 app.use('/password', middleware.checkToken, require('./routes/password.js'))
+=======
+app.use('/zipcode', require('./routes/zipcode.js'))
+
+app.use('/weather/current', require('./routes/weather.js'))
+>>>>>>> 0bf457495edcb2bbe9f1c3406f1ea641ecab9b83
 
 /*
  * This middleware function will respond to inproperly formed JSON in 

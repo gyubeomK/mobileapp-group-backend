@@ -21,7 +21,9 @@ var router = express.Router()
  */
 router.get("/", (req, res) => {
 
-    let url = `http://dataservice.accuweather.com/currentconditions/v1/41531_PC?apikey=sGtmTVEQIFpRnH0fOhfXi77X3MMlhNak`
+    const query = req.body.zipcode
+
+    let url = 'http://dataservice.accuweather.com/locations/v1/postalcodes/search?apikey=sGtmTVEQIFpRnH0fOhfXi77X3MMlhNak&q='+query
 
     request(url, function (error, response, body) {
 

@@ -439,7 +439,7 @@ router.post('/favorite/delete/:memberId?', (request, response, next) => {
 })
 
 /**
- * @api {post} /add Send Friend Request to another user
+ * @api {post} /`add` Send Friend Request to another user
  * @apiName addUser
  * @apiGroup Contacts
  * 
@@ -492,6 +492,10 @@ router.post("/add", (request, response, next) => {
                           notification: {
                             title: 'Contacts',
                             body: 'Hello, you have a new friend request'
+                          },
+                          data: {
+                              title: 'Contacts',
+                              body: "You have a new friend request"
                           }
                         }
                       }).then((publishResponse) => {
