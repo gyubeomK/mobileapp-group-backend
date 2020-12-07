@@ -37,7 +37,7 @@ app.use('/twelvehour', require('./routes/twelvehour.js'))
 
 app.use('/pusher', middleware.checkToken, require('./routes/pusher.js'))
 
-app.use('/password', middleware.checkToken, require('./routes/password.js'))
+app.use('/password', require('./routes/password.js'))
 
 app.use('/verifier', require('./routes/verifier.js'))
 
