@@ -22,7 +22,9 @@ var router = express.Router()
  */
 router.get("/", (req, res) => {
 
-    let url = `http://dataservice.accuweather.com/forecasts/v1/daily/5day/41531_PC?apikey=%20%09${API_KEY}`
+    const query = req.body.locationkey
+
+    let url = "http://dataservice.accuweather.com/forecasts/v1/daily/5day/"+query+"?apikey="+API_KEY
 
     request(url, function (error, response, body) {
 
