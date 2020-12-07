@@ -15,7 +15,7 @@ let getHash = require('../utilities/utils').getHash
 //This allows parsing of the body of POST requests, that are encoded in JSON
 router.use(bodyParser.json())
 
-router.post('/', (request, response, next)=> {
+router.post('/change', (request, response, next)=> {
     var email = request.body.email
     var oldpass = request.body.oldpassword
     var newpass = request.body.newpassword
@@ -26,7 +26,7 @@ router.post('/', (request, response, next)=> {
     } else {
         next()
     }
-}, (request, response, next) => {
+}, (request, response) => {
     let query = 'SELECT Password, Salt FROM Members WHERE Email=$1'
     let values = [request.body.email]
     pool.query(query, values)
