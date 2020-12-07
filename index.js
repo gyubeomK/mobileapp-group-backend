@@ -37,11 +37,15 @@ app.use('/twelvehour', require('./routes/twelvehour.js'))
 
 app.use('/pusher', middleware.checkToken, require('./routes/pusher.js'))
 
-app.use('/password', require('./routes/password.js'))
+app.use('/password', middleware.checkToken, require('./routes/password.js'))
+
+app.use('/verifier', require('./routes/verifier.js'))
+
+app.use('/weather/current', require('./routes/weather.js'))
 
 app.use('/zipcode', require('./routes/zipcode.js'))
 
-app.use('/weather/current', require('./routes/weather.js'))
+
 
 /*
  * This middleware function will respond to inproperly formed JSON in 

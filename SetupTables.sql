@@ -63,3 +63,9 @@ CREATE TABLE Push_Token (KeyID SERIAL PRIMARY KEY,
                         Token VARCHAR(255),
                         FOREIGN KEY(MemberID) REFERENCES Members(MemberID)
 );
+
+DROP TABLE IF EXISTS Valid_Verifiers;
+CREATE TABLE Valid_Verifiers (KeyID SERIAL PRIMARY KEY,
+                                Link VARCHAR(255) UNIQUE,
+                                Email VARCHAR(255) UNIQUE
+);
