@@ -4,6 +4,7 @@ const express = require('express')
 //We use this create the SHA256 hash
 const crypto = require("crypto")
 
+var nodemailer = express.Router()
 //Access the connection to Heroku Database
 let pool = require('../utilities/utils').pool
 
@@ -69,7 +70,7 @@ router.post('/', (req, res) => {
                     username: result.rows[0].username,
                     primarykey: result.rows[0].primarykey
                 })
-                sendEmail("uwnetid@uw.edu", email, "Welcome!", "<strong>Welcome to our app!</strong>");
+                sendEmail("450g1au2020@gmail.com", email, "Welcome!", "<strong>Welcome to our app!</strong>");
             })
             .catch((err) => {
                 //log the error
