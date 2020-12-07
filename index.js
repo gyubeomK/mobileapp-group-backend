@@ -45,6 +45,8 @@ app.use('/weather/current', require('./routes/weather.js'))
 
 app.use('/zipcode', require('./routes/zipcode.js'))
 
+app.use('/geoposition', require('./routes/geoposition.js'))
+
 
 
 /*
