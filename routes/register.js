@@ -70,7 +70,7 @@ router.post('/', (req, res) => {
                     username: result.rows[0].username,
                     primarykey: result.rows[0].primarykey
                 })
-                sendEmail("450g1au2020@gmail.com", email, "Welcome!", "<strong>Welcome to our app!</strong>");
+                sendEmail("450g1au2020@gmail.com", email, "Welcome!", "<strong>Welcome to our app!</strong>");//TODO: use environment variable
             })
             .catch((err) => {
                 //log the error
