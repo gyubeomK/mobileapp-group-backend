@@ -19,9 +19,11 @@ var router = express.Router()
  * /currentconditions/v1/%7BlocationKey%7D">Accuweather documentation</a> for a list of optional
  * parameters and expected results.
  */
-router.get("/", (req, res) => {
+router.post("/", (req, res) => {
 
-    let url = `http://dataservice.accuweather.com/currentconditions/v1/41531_PC?apikey=KrNJ7epExtHswickfnlR95tqZGTQkQ46`
+    const query = req.body.locationkey
+
+    let url = "http://dataservice.accuweather.com/currentconditions/v1/"+query+"?apikey=KrNJ7epExtHswickfnlR95tqZGTQkQ46"
 
     request(url, function (error, response, body) {
 
@@ -30,7 +32,10 @@ router.get("/", (req, res) => {
             res.send(error)
         } else {
             
-             res.send(data);
+            var n = body
+            var nakidBody = n.substring(1, n.length-1)
+
+            res.send(nakidBody)
             
             
         }
