@@ -9,7 +9,6 @@ let pool = require('../utilities/utils').pool
 var router = express.Router()
 
 const bodyParser = require("body-parser")
-const { nextTick } = require('process')
 
 let getHash = require('../utilities/utils').getHash
 
@@ -38,15 +37,18 @@ router.post('/', (request, response, next)=> {
                 })
                 return
             } 
-            let salt = result.rows[0].salt
-            let curpassword = result.rows[0].password
-            let TheirSalt = getHash(request.body.oldpassword, salt)
+            let cursalt = result.rows[0].salt
+            let curpass = result.rows[0].password
+            let TheirSalt = getHash(request.body.oldpassword, cursalt)
             let newSalt = crypt.randomBytes(32).toString('hex')
-            let MySalt = getHash(request.body.newpassword, newSalt) //hash for new password
+            let mySaltNewPass = getHash(request.body.newpassword, newSalt) //hash for new password
             let update =`UPDATE Members 
                          SET Password=$1, Salt=$2 WHERE email=$3`
-            let values = [request.body.oldpassword, request.body.newpassword, request.body.email]
-            if(TheirSalt === curpassword) {
+            let values = [mySaltNewPass, newSalt, request.body.email]
+            /*response.send({
+                message: "current salt = " + salt + "/ current hash = " + TheirSalt + "/ current password = " + curpassword  + "/ newsort = " + newSalt + "/ new hash = " + MySalt
+            })*/
+            if(TheirSalt === curpass) {
                 console.log('Credentials Match!')
                 pool.query(update, values)
                 .then(result => {
