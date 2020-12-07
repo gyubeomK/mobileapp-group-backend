@@ -22,7 +22,9 @@ var router = express.Router()
  */
 router.get("/", (req, res) => {
 
-    let url = `http://dataservice.accuweather.com/forecasts/v1/hourly/12hour/41531_PC?apikey=${API_KEY}`
+    const query = req.body.locationkey
+
+    let url = "http://dataservice.accuweather.com/forecasts/v1/hourly/12hour/"+query+"?apikey="+API_KEY
 
     request(url, function (error, response, body) {
 
@@ -31,7 +33,11 @@ router.get("/", (req, res) => {
             res.send(error)
         } else {
             
-             res.send(data);
+             //res.send(data);
+             var n = body
+             var nakidBody = n.substring(1, n.length-1)
+
+             res.send(nakidBody)
             
             
         }
