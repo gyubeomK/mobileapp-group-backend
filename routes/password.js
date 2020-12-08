@@ -54,7 +54,7 @@ router.post('/change', (request, response, next)=> {
                 .then(result => {
                     if(result.rowCount > 0) {
                         response.json({
-                        success: true,
+                        sucess: true,
                         message: "New Password is UPDATED!"
                         })
                     } else {
@@ -65,7 +65,7 @@ router.post('/change', (request, response, next)=> {
                 }) 
             } else {
                 response.json({
-                    success: false,
+                    sucess: false,
                     message: 'Your Old Password is WRONG (Not Match With Our System)!'
                 }) 
             }

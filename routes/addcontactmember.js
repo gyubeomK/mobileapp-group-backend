@@ -72,7 +72,7 @@ router.put("/:chatId/:memberId", (request, response, next) => {
             .then(result => {
                 if (result.rowCount > 0) {
                     response.json({
-                        success: false,
+                        sucess: false,
                         message: "user already joined"
                     })
                 } else {
