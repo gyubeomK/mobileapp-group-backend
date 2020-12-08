@@ -66,6 +66,6 @@ CREATE TABLE Push_Token (KeyID SERIAL PRIMARY KEY,
 
 DROP TABLE IF EXISTS Valid_Verifiers;
 CREATE TABLE Valid_Verifiers (KeyID SERIAL PRIMARY KEY,
-                                Link VARCHAR(255) UNIQUE,
+                                mHash VARCHAR(255) UNIQUE,
                                 Email VARCHAR(255) UNIQUE
 );

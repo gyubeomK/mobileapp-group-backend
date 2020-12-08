@@ -17,18 +17,18 @@ function sendEmail(origin, receiver, subj, message) {
   } else if(subj === 'pw') {
     subjectLine = 'Password change requested with Group 1\'s app'
   }
-  if(origin) {
+  if(receiver) {
     var transporter = nodemailer.createTransport({
       service: 'gmail',
       auth: {
-      user: origin, //make these enviro variables
+      user: origin, 
       pass: sourceEmailPw
       }
     })
     var mailOptions = {
       from: origin,
       to: receiver,
-      subject: subj,
+      subject: subjectLine,
       html: message
     }
     transporter.sendMail(mailOptions, function(error, info) {
@@ -38,10 +38,8 @@ function sendEmail(origin, receiver, subj, message) {
         console.log('Email successfully sent:' + info.response)
       }
     })
-  }
-
-  //fake sending an email for now. Post a message to logs. 
-  console.log('Email sent: ' + message);
+  } 
+  console.log('Email sent to: ' + origin);
 }
 
 /**
