@@ -65,7 +65,7 @@ router.post('/change', (request, response, next)=> {
                 }) 
             } else {
                 response.json({
-                    sucss: false,
+                    success: false,
                     message: 'Your Old Password is WRONG!'
                 }) 
             }
