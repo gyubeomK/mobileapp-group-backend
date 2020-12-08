@@ -93,8 +93,9 @@ router.put("/:chatId/:memberId", (request, response, next) => {
     let values = [request.params.chatId, request.body.memberid]
     pool.query(insert, values)
         .then(result => {
-            response.send({
-                success: true
+            response.json({
+                success: true,
+                message: "Added To Chat!"
             })
         }).catch(err => {
             response.status(400).send({
