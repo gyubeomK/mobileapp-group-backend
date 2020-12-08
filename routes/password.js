@@ -53,7 +53,8 @@ router.post('/change', (request, response, next)=> {
                 pool.query(update, values)
                 .then(result => {
                     if(result.rowCount > 0) {
-                        response.send({
+                        response.json({
+                        sucess: true,
                         message: "New Password is UPDATED!"
                         })
                     } else {
