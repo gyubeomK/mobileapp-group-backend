@@ -64,8 +64,9 @@ router.post('/change', (request, response, next)=> {
                     }
                 }) 
             } else {
-                response.status(400).send({
-                    message: 'Credentials did not match'
+                response.json({
+                    sucss: false,
+                    message: 'Your Old Password is WRONG!'
                 }) 
             }
         })
