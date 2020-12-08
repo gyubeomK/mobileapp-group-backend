@@ -42,7 +42,7 @@ router.put("/:chatId/:memberId", (request, response, next) => {
                 error: error
             })
         })
-        //code here based on the results of the query
+
 }, (request, response, next) => {
     //validate email exists 
     let query = 'SELECT * FROM Members WHERE MemberId=$1'
@@ -71,7 +71,8 @@ router.put("/:chatId/:memberId", (request, response, next) => {
         pool.query(query, values)
             .then(result => {
                 if (result.rowCount > 0) {
-                    response.status(400).send({
+                    response.json({
+                        success: false,
                         message: "user already joined"
                     })
                 } else {
@@ -92,8 +93,9 @@ router.put("/:chatId/:memberId", (request, response, next) => {
     let values = [request.params.chatId, request.body.memberid]
     pool.query(insert, values)
         .then(result => {
-            response.send({
-                sucess: true
+            response.json({
+                success: true,
+                message: "Added To Chat!"
             })
         }).catch(err => {
             response.status(400).send({
