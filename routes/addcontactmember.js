@@ -92,7 +92,7 @@ router.put("/:chatId/:memberId", (request, response, next) => {
     let values = [request.params.chatId, request.body.memberid]
     pool.query(insert, values)
         .then(result => {
-            response.send({
+            response.json({
                 success: true,
                 message: "You Are Now In The Chat!"
             })
