@@ -1,6 +1,7 @@
 const API_KEY = process.env.ACCUWEATHER_API_KEY
 const API_KEY2 = 'KrNJ7epExtHswickfnlR95tqZGTQkQ46'
 const API_KEY3 = 'sGtmTVEQIFpRnH0fOhfXi77X3MMlhNak'
+const API_KEY4 = 'bMpjOJLDdzSHqmrJzs5Oj33R9X4OTETn'
 
 //express is the framework we're going to use to handle requests
 const express = require('express')
@@ -22,12 +23,12 @@ var router = express.Router()
  * forecasts/v1/hourly/12hour/%7BlocationKey%7D">Accuweather documentation</a> for a list of optional
  * parameters and expected results.
  */
-router.get("/", (req, res) => {
+router.post("/", (req, res) => {
 
     
     const query = req.body.locationkey
 
-    let url = "http://dataservice.accuweather.com/forecasts/v1/hourly/12hour/"+query+"?apikey="+API_KEY2
+    let url = "http://dataservice.accuweather.com/forecasts/v1/hourly/12hour/"+query+"?apikey="+API_KEY4
 
     request(url, function (error, response, body) {
 

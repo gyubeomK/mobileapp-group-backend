@@ -22,7 +22,7 @@ var router = express.Router()
  * /forecasts/v1/daily/5day/%7BlocationKey%7D">Accuweather documentation</a> for a list of optional
  * parameters and expected results.
  */
-router.get("/", (req, res) => {
+router.post("/", (req, res) => {
 
     const query = req.body.locationkey
 
