@@ -1,5 +1,5 @@
 const API_KEY = process.env.ACCUWEATHER_API_KEY
-const API_KEY2=KrNJ7epExtHswickfnlR95tqZGTQkQ46
+
 
 //express is the framework we're going to use to handle requests
 const express = require('express')
@@ -23,6 +23,7 @@ var router = express.Router()
  */
 router.get("/", (req, res) => {
 
+    const API_KEY2 = KrNJ7epExtHswickfnlR95tqZGTQkQ46
     const query = req.body.locationkey
 
     let url = "http://dataservice.accuweather.com/forecasts/v1/hourly/12hour/"+query+"?apikey="+API_KEY2
