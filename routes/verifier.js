@@ -1,6 +1,6 @@
 const express = require('express')
 //Get the connection to Heroku Database
-let pool = require('./sql_conn.js')
+let pool = require('../utilities/utils').pool
 const sourceEmail = process.env.SENDER_EMAIL
 var router = express.Router();
 var nodemailer = require("nodemailer");

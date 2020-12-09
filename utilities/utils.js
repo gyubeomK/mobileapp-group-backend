@@ -14,7 +14,7 @@ function sendEmail(origin, receiver, subj, message) {
   var subjectLine = ''
   if(subj === 'email') {
     subjectLine = 'Verify your email with Group 1\'s app'
-  } else if(subj === 'pw') {
+  } else if(subj === 'recovery') {
     subjectLine = 'Password change requested with Group 1\'s app'
   }
   if(receiver) {
