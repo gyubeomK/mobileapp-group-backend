@@ -1,5 +1,6 @@
 const API_KEY = process.env.ACCUWEATHER_API_KEY
 const API_KEY2 = 'KrNJ7epExtHswickfnlR95tqZGTQkQ46'
+const API_KEY3 = 'sGtmTVEQIFpRnH0fOhfXi77X3MMlhNak'
 
 //express is the framework we're going to use to handle requests
 const express = require('express')
