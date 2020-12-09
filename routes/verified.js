@@ -9,10 +9,10 @@ let getHash = require('../utilities/utils').getHash
 let sendEmail = require('../utilities/utils').sendEmail
 router.use(bodyParser.json())
 router.get("/", (request, res) => {
-    var address = request.params.email
-    var hash = request.params.hash
+    var address = "\'"+ request.params.email + "\'"
+    var hash = "\'" + request.params.hash + "\'"
     //check for hash in the table
-    let theQuery = "IF EXISTS(SELECT 1 FROM Valid_Verifiers WHERE mHash=\"" + hash + "\")"  
+    let theQuery = "IF EXISTS(SELECT 1 FROM Valid_Verifiers WHERE mHash=" + hash + ")"  
     pool.query(theQuery)
             .then(result => {
                 if(result) {
@@ -26,15 +26,17 @@ router.get("/", (request, res) => {
                     let values = [hash, address]
                     pool.query(theQuery2, values)
                                 .then(result => {
-
+                                    res.status(201).send({
+                                        success: true //front end uses the success to navigate to the next fragment
+                                     })
                                 })
                                 .catch((err)=> {
                                     res.status(400).send({
                                         message: err.detail
                                     })
                                 })
-                                //TODO: direct to register endpoint idk how
-
+                                
+                                
                             } else {
                                 res.status(400).send( {
                                     message: "Link has already been used"
