@@ -1,6 +1,7 @@
 const API_KEY = process.env.ACCUWEATHER_API_KEY
 const API_KEY2 = 'KrNJ7epExtHswickfnlR95tqZGTQkQ46'
 const API_KEY3 = 'sGtmTVEQIFpRnH0fOhfXi77X3MMlhNak'
+const API_KEY4 = 'bMpjOJLDdzSHqmrJzs5Oj33R9X4OTETn'
 
 //express is the framework we're going to use to handle requests
 const express = require('express')
@@ -26,7 +27,7 @@ router.post("/", (req, res) => {
    
     const query = req.body.zipcode
 
-    let url = "http://dataservice.accuweather.com/locations/v1/postalcodes/search?apikey="+API_KEY3+"&q="+query
+    let url = "http://dataservice.accuweather.com/locations/v1/postalcodes/search?apikey="+API_KEY4+"&q="+query
 
     request(url, function (error, response, body) {
 
