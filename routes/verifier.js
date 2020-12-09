@@ -38,14 +38,14 @@ function addLink(email, theHash, res) {
     
     let values = [theHash, email]
     pool.query(theQuery, values)
-            // .then(result => {
-            //     //We add the url to the table
-            //     res.status(201).send({
-            //         success: true,
-            //         theEmail: result.rows[0].Email,
-            //         theHash: result.rows[0].mHash
-            //     })
-            // })
+            .then(result => {
+                //We add the url to the table
+                res.status(201).send({
+                    success: true,
+                     theEmail: result.rows[0].Email,
+                     theHash: result.rows[0].mHash
+                 })
+             })
             .catch((err)=> {
                 if(err.constraint == "valid_verifiers_email_key") {
                     res.status(400).send({
