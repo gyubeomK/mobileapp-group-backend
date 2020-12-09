@@ -5,13 +5,11 @@ const sourceEmail = process.env.SENDER_EMAIL
 var router = express.Router();
 const crypto = require("crypto")
 const bodyParser = require("body-parser")
-let getHash = require('../utilities/utils').getHash
-let sendEmail = require('../utilities/utils').sendEmail
 router.use(bodyParser.json())
 router.get("/", (request, res) => {
-    var address = "\'"+ request.params.email + "\'"
-    var hash = "\'" + request.params.hash + "\'"
-    //check for hash in the table
+    var address = request.query.email 
+    var hash = request.query.hash
+    // check for hash in the table
     let theQuery = "IF EXISTS(SELECT 1 FROM Valid_Verifiers WHERE mHash=" + hash + ")"  
     pool.query(theQuery)
             .then(result => {
@@ -32,7 +30,7 @@ router.get("/", (request, res) => {
                                 })
                                 .catch((err)=> {
                                     res.status(400).send({
-                                        message: err.detail
+                                        message: "Second query failed"
                                     })
                                 })
                                 
@@ -46,8 +44,10 @@ router.get("/", (request, res) => {
             .catch((err)=> {
                 
                     res.status(400).send({
-                        message: err.detail
+                        message: "first query failed, value of hash is: " + hash + " and query is: " + theQuery + " and email is: " + address
                     })
                 
             })
 })
+
+module.exports = router
