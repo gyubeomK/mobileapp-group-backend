@@ -39,7 +39,7 @@ app.use('/pusher', middleware.checkToken, require('./routes/pusher.js'))
 
 app.use('/password', require('./routes/password.js'))
 
-app.use('/verified', require('./routes/verified.js'))
+//app.use('/verified', require('./routes/verified.js'))
 
 app.use('/verifier', require('./routes/verifier.js'))
 
