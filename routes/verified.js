@@ -21,10 +21,7 @@ router.get("/", (request, res) => {
                     })
                 } else {
                     //If it is in the table 
-                    res.status(201).send({
-                        //front end can read this to progress screens
-                        success: true
-                    })
+                    
                     isInTable = true;
                     //remove entry from the table 
                     // let theQuery2 = "DELETE FROM Valid_Verifiers WHERE mHash=\'VALUES($1)\' AND Email=\'VALUES($2)\' RETURNING *"
@@ -63,7 +60,10 @@ router.get("/", (request, res) => {
             console.log(theQuery2)
             pool.query(theQuery2, values)
                         .then(result => {
-                            
+                            res.status(201).send({
+                                //front end can read this to progress screens
+                                success: true
+                            })
                         })
                         .catch((err) => {
                             res.status(400).send({
