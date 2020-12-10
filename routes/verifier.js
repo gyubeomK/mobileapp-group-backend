@@ -15,13 +15,14 @@ router.get("/", (request, response) => {
     if(request.body.email) {
     let salt = crypto.randomBytes(32).toString("hex")
     let salted_hash = getHash(address, salt)
-    const url = 'https://mobileapp-group-backend.herokuapp.com/verified?email='
+    const url = 'https://mobileapp-group-backend.herokuapp.com/verified?email=\''
     var intermediateUrl = url.concat(address)
-    var penultimateUrl = intermediateUrl.concat('&hash=')
+    var penultimateUrl = intermediateUrl.concat('\'&hash=\'')
     var finalUrl = penultimateUrl.concat(salted_hash)
+    var finalestUrl = finalUrl.concat('\'')
     var htmlString1 = '<a href='
     var htmlString2 = '>Verify your email</a>'
-    var finalConcat1 = htmlString1.concat(finalUrl)
+    var finalConcat1 = htmlString1.concat(finalestUrl)
     var fullMessage = finalConcat1.concat(htmlString2)
     addLink(address, salted_hash, response)
     sendEmail(sourceEmail, address, "email", fullMessage) 
