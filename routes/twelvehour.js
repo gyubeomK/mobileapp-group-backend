@@ -38,11 +38,11 @@ router.post("/", (req, res) => {
             res.send(error)
         } else {
             
-             res.send(data);
-            //  var n = body
-            //  var nakidBody = n.substring(1, n.length-1)
+             //res.send(data);
+             var n = body
+             var nakidBody = n.substring(1, n.length-1)
 
-            //  res.send(nakidBody)
+             res.send(nakidBody)
             
             
         }
