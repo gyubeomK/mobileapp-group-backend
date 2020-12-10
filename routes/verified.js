@@ -25,7 +25,7 @@ router.get("/", (request, res) => {
                         //front end can read this to progress screens
                         success: true
                     })
-                    let theQuery2 = "DELETE FROM Valid_Verifiers WHERE mHash=\'VALUES($1)\' AND Email=\'VALUES($2)\' RETURNING *"
+                    let theQuery2 = "DELETE FROM Valid_Verifiers WHERE mHash=VALUES($1) AND Email=VALUES($2) RETURNING *"
                     let values = [hash, address]
                     pool.query(theQuery2, values)
                                 .then(result => {
