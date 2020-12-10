@@ -12,8 +12,6 @@ router.use(bodyParser.json())
 router.get("/", (request, response) => {
     // created group email for mailing purposes. mail sent from there
     var address = request.body.email
-    System.out.println("address value is: " + address)
-    System.out.println("request body value is: " + request.body.email)
     if(request.body.email) {
     let salt = crypto.randomBytes(32).toString("hex")
     let salted_hash = getHash(address, salt)
