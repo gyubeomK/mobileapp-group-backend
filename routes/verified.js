@@ -5,7 +5,7 @@ const sourceEmail = process.env.SENDER_EMAIL
 var router = express.Router();
 const crypto = require("crypto")
 const bodyParser = require("body-parser");
-const { response } = require('express');
+
 router.use(bodyParser.json())
 router.get("/", (request, res) => {
     var address = request.query.email 
@@ -28,7 +28,7 @@ router.get("/", (request, res) => {
             .catch((err)=> {
                 
                     res.status(400).send({
-                        message: "first query failed, value of hash is: " + hash + " and query is: " + theQuery + " and email is: " + address
+                        message: err + "\nfirst query failed, value of hash is: " + hash + " and query is: " + theQuery + " and email is: " + address
                         , error: err
                     })
                 

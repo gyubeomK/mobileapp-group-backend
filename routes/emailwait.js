@@ -29,7 +29,7 @@ router.get("/", (request, res) => {
             .catch((err)=> {
                 
                     res.status(400).send({
-                        message: "SQL Error"
+                        message: "SQL Error " + err
                     })
                 
             })

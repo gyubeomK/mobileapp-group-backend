@@ -16,6 +16,8 @@ function sendEmail(origin, receiver, subj, message) {
     subjectLine = 'Verify your email with Group 1\'s app'
   } else if(subj === 'recovery') {
     subjectLine = 'Password change requested with Group 1\'s app'
+  } else if(subj === 'reg') {
+    subjectLine = 'Thank you for verifying your email!'
   }
   if(receiver) {
     var transporter = nodemailer.createTransport({

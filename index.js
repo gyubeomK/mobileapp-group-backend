@@ -11,6 +11,8 @@ const bodyParser = require("body-parser");
 //This allows parsing of the body of POST requests, that are encoded in JSON
 app.use(bodyParser.json())
 
+app.use('/addcontactmember', middleware.checkToken,require('./routes/addcontactmember.js'))
+
 app.use('/auth', require('./routes/login.js'))
 
 app.use('/auth', require('./routes/register.js'))
@@ -25,7 +27,7 @@ app.use('/chats', middleware.checkToken, require('./routes/chats.js'))
 
 app.use('/contact', middleware.checkToken,require('./routes/contact.js'))
 
-app.use('/addcontactmember', middleware.checkToken,require('./routes/addcontactmember.js'))
+app.use('/emailwait', require('./routes/emailwait.js'))
 
 app.use('/password', require('./routes/password.js'))
 
