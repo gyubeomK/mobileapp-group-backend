@@ -63,13 +63,13 @@ router.get("/", (request, res) => {
                             res.status(201).send({
                                 //front end can read this to progress screens
                                 success: true,
-                                //message: "query was: " + theQuery2
+                                message: "query was: " + theQuery2
                             })
                         })
                         .catch((err) => {
                             res.status(400).send({
-                                //message: "Nothing to delete, query was: " + theQuery2
-                                message: "Nothing to delete"
+                                message: "Nothing to delete, query was: " + theQuery2
+                                //message: "Nothing to delete"
                             })
                         })
                     }
