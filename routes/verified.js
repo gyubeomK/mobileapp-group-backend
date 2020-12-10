@@ -16,40 +16,20 @@ router.get("/", (request, res) => {
     pool.query(theQuery)
             .then(result => {
                 if(result.rowCount == 0) { 
-                    response.status(404).send({
+                    res.status(404).send({
                         message: "email not found"
                     })
                 } else {
                     //If it is in the table 
-                    
-                    isInTable = true;
-                    //remove entry from the table 
-                    // let theQuery2 = "DELETE FROM Valid_Verifiers WHERE mHash=\'VALUES($1)\' AND Email=\'VALUES($2)\' RETURNING *"
-                    // let values = [hash, address]
-                    // pool.query(theQuery2, values)
-                    //             .then(result => {
-                    //                 res.status(201).send({
-                    //                     success: true //front end uses the success to navigate to the next fragment
-                    //                  })
-                    //             })
-                    //             .catch((err)=> {
-                    //                 res.status(400).send({
-                    //                     message: "Second query failed"
-                    //                 })
-                    //             })
-                                
-                                
-                    //         } else {
-                    //             res.status(400).send( {
-                    //                 message: "Link has already been used"
-                    //             })
-                            }
+                         isInTable = true;
+                    }
                         
             })
             .catch((err)=> {
                 
                     res.status(400).send({
                         message: "first query failed, value of hash is: " + hash + " and query is: " + theQuery + " and email is: " + address
+                        , error: err
                     })
                 
             })
