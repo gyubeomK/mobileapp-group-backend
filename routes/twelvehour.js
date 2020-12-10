@@ -26,7 +26,9 @@ var router = express.Router()
 router.post("/", (req, res) => {
 
     
-    const query = req.body.get[0]
+    //const query = req.body.locationkey
+    var Array = req.body.data
+    const query = Array[0].toString()
 
     let url = "http://dataservice.accuweather.com/forecasts/v1/hourly/12hour/"+query+"?apikey="+API_KEY4
 
