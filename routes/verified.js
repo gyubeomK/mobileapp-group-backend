@@ -68,7 +68,7 @@ router.get("/", (request, res) => {
                         })
                         .catch((err) => {
                             res.status(400).send({
-                                message: "Nothing to delete"
+                                message: "Nothing to delete, query was: " + theQuery2
                             })
                         })
                     }

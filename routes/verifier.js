@@ -36,7 +36,7 @@ router.get("/", (request, response) => {
 function addLink(email, theHash, res) {
 
     let theQuery = "INSERT INTO Valid_Verifiers(mHash, Email) VALUES($1, $2) RETURNING *"
-    
+    let alreadyInTable = false;
     let values = [theHash, email]
     pool.query(theQuery, values)
             .then(result => {
