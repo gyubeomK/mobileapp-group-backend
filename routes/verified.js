@@ -35,7 +35,7 @@ router.get("/", (request, res) => {
             })
         if(isInTable) {
             console.log("mHash=" + hash)
-            let theQuery2 = "DELETE FROM Valid_Verifiers WHERE mHash=" +hash+" AND Email=" +address + ";"
+            let theQuery2 = "Select * FROM Valid_Verifiers WHERE mHash=" +hash+" AND Email=" +address + ";"
             let values = [hash, address]
             console.log(theQuery2)
             pool.query(theQuery2, values)
@@ -43,7 +43,7 @@ router.get("/", (request, res) => {
                             res.status(201).send({
                                 //front end can read this to progress screens
                                 success: true,
-                                message: "query was: " + theQuery2
+                                message: "query was sucessful with: " + theQuery2
                             })
                         })
                         .catch((err) => {
