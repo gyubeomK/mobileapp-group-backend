@@ -35,6 +35,8 @@ app.use('/weather', require('./routes/currentweather.js'))
 
 app.use('/fiveday', require('./routes/fiveday.js'))
 
+app.use('/forgotpw', require('./routes/forgotpwemail.js'))
+
 app.use('/twelvehour', require('./routes/twelvehour.js'))
 
 app.use('/pusher', middleware.checkToken, require('./routes/pusher.js'))
