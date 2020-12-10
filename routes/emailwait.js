@@ -10,7 +10,7 @@ router.use(bodyParser.json())
 router.get("/", (request, res) => {
     var address = request.body.email 
     // check for hash in the table
-    let theQuery = "SELECT * FROM Valid_Verifiers WHERE Email=" + email +";"
+    let theQuery = "SELECT * FROM Valid_Verifiers WHERE Email=" + address +";"
     pool.query(theQuery)
             .then(result => {
                 if(result.rowCount == 0) { 
@@ -22,16 +22,12 @@ router.get("/", (request, res) => {
                     res.status(201).send({
                         success: false
                     })
-
-                        }
-                        
+                    }    
             })
             .catch((err)=> {
-                
                     res.status(400).send({
                         message: "SQL Error " + err
                     })
-                
             })
 })
 

@@ -22,8 +22,7 @@ router.get("/", (request, res) => {
                 } else {
                     //If it is in the table 
                          isInTable = true;
-                    }
-                        
+                    }      
             })
             .catch((err)=> {
                 
@@ -31,12 +30,10 @@ router.get("/", (request, res) => {
                         message: err + "\nfirst query failed, value of hash is: " + hash + " and query is: " + theQuery + " and email is: " + address
                         , error: err
                     })
-                
             })
         if(isInTable) {
             console.log("mHash=" + hash)
             let theQuery2 = "DELETE FROM Valid_Verifiers WHERE mHash=" +hash+" AND Email=" +address + ";"
-            //let values = [hash, address]
             let values = []
             console.log(theQuery2)
             pool.query(theQuery2, values)
@@ -44,13 +41,12 @@ router.get("/", (request, res) => {
                             res.status(201).send({
                                 //front end can read this to progress screens
                                 success: true,
-                                message: "query was sucessful with: " + theQuery2
+                                message: "Email verified"
                             })
                         })
                         .catch((err) => {
                             res.status(400).send({
-                                message: "Nothing to delete, query was: " + theQuery2 + "and error was: " + err
-                                //message: "Nothing to delete"
+                                message: "SQL Error" + err
                             })
                         })
                     }
