@@ -11,8 +11,8 @@ let sendEmail = require('../utilities/utils').sendEmail
 router.use(bodyParser.json())
 router.get("/", (request, response) => {
     // created group email for mailing purposes. mail sent from there
-    var address = request.body.email
-    if(request.body.email) {
+    var address = request.query.email
+    if(request.query.email) {
     let salt = crypto.randomBytes(32).toString("hex")
     let salted_hash = getHash(address, salt)
     const url = 'https://mobileapp-group-backend.herokuapp.com/verified?email=\''
