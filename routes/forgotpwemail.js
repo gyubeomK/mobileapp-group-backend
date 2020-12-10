@@ -15,50 +15,15 @@ router.get("/", (request, response) => {
     if(request.query.email) {
     let salt = crypto.randomBytes(32).toString("hex")
     let salted_hash = getHash(address, salt)
-    const url = 'https://mobileapp-group-backend.herokuapp.com/temppass?email=\''
-    var intermediateUrl = url.concat(address)
-    var penultimateUrl = intermediateUrl.concat('\'&hash=\'')
-    var finalUrl = penultimateUrl.concat(salted_hash)
-    var finalestUrl = finalUrl.concat('\'')
+    //secure but not in terms of malicious inconvenience. there's a better way, this is too simple
+    var url = 'https://mobileapp-group-backend.herokuapp.com/forgotpw?email='
+                    + address
     var htmlString1 = '<a href='
     var htmlString2 = '>Generate a temporary password</a>'
-    var finalConcat1 = htmlString1.concat(finalestUrl)
+    var finalConcat1 = htmlString1.concat(url)
     var fullMessage = finalConcat1.concat(htmlString2)
     sendEmail(sourceEmail, address, "recovery", fullMessage) 
     }
 })
-/**
- * 
- * @apiParam {String} email email to be added to database to await verification
- * @apiParam {String} theUrl url to be added to database to be checked as valid
- */
-function changePass(email, res) {
-
-    let theQuery = 'SELECT Password, Salt FROM Members WHERE Email=$1'
-    let values = [email]
-    pool.query(theQuery, values)
-        .then(result => {
-            if (result.rowCount == 0) {
-                res.status(404).send({
-                    message: "User Information not found"
-                })
-                return
-            } 
-            let newSalt = crypt.randomBytes(32).toString('hex')
-            let mySaltNewPass = getHash(request.body.newpassword, newSalt) //hash for new password
-            let update =`UPDATE Members 
-                         SET Password=$1, Salt=$2 WHERE email=$3`
-            let vals = [mySaltNewPass, newSalt, request.body.email]
-            pool.query(update, vals)
-                    .then(result => {
-                        let message1 = "Your password with Group 1's app has been changed." +
-                        " Your new password is:\n" + mySaltNewPass
-                sendEmail(sourceEmail, email, "changed", message1)
-            })
-            
-        })
-        return
-    }
-    
 
 module.exports = router
