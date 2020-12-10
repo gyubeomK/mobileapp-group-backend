@@ -62,7 +62,8 @@ router.get("/", (request, res) => {
                         .then(result => {
                             res.status(201).send({
                                 //front end can read this to progress screens
-                                success: true
+                                success: true,
+                                message: "query was: " + theQuery2
                             })
                         })
                         .catch((err) => {
