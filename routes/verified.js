@@ -55,7 +55,7 @@ router.get("/", (request, res) => {
             })
         if(isInTable) {
             console.log("mHash=" + hash)
-            let theQuery2 = "DELETE FROM Valid_Verifiers WHERE mHash=$1 AND Email=$2"
+            let theQuery2 = "DELETE FROM Valid_Verifiers WHERE mHash=" +hash+" AND Email=" +address
             let values = [hash, address]
             console.log(theQuery2)
             pool.query(theQuery2, values)
