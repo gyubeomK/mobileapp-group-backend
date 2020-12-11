@@ -1,8 +1,8 @@
 {
-  "name": "Group 1 App Backend",
+  "name": "Group 1",
   "version": "0.1.0",
-  "description": "The TCSS450 Mobile App Backend Documentation",
-  "title": "Group 1 API Doc",
+  "description": "Mobile App API Documentation",
+  "title": "Lab 4 API Doc",
   "url": "https://mobileapp-group-backend.herokuapp.com",
   "order": [
     "Hello",
@@ -17,7 +17,7 @@
   "apidoc": "0.3.0",
   "generator": {
     "name": "apidoc",
-    "time": "2020-11-20T02:35:01.042Z",
+    "time": "2020-12-11T06:27:31.319Z",
     "url": "https://apidocjs.com",
     "version": "0.25.0"
   }

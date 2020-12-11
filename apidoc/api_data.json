@@ -1,9 +1,38 @@
 [
   {
-    "type": "get",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "email",
+            "description": "<p>email to be added to database to await verification</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "theUrl",
+            "description": "<p>url to be added to database to be checked as valid</p>"
+          }
+        ]
+      }
+    },
+    "type": "",
+    "url": "",
+    "version": "0.0.0",
+    "filename": "routes/verifier.js",
+    "group": "/Users/GyubeomKim/Desktop/TCSS450/mobileapp-group-backend/routes/verifier.js",
+    "groupTitle": "/Users/GyubeomKim/Desktop/TCSS450/mobileapp-group-backend/routes/verifier.js",
+    "name": ""
+  },
+  {
+    "type": "post",
     "url": "/currentweather",
-    "title": "Request the current weather of a zip code (98374)",
-    "name": "GetCurrentWeather",
+    "title": "Request the current weather for a location key",
+    "name": "PostCurrentWeather",
     "group": "AccuWeather",
     "description": "<p>This end point is a pass through to the developer.accuweather.com API. All parameters will pass on to http://dataservice.accuweather.com/currentconditions/v1/. See the <a href=\"https://developer.accuweather.com/accuweather-current-conditions-api/apis/get /currentconditions/v1/%7BlocationKey%7D\">Accuweather documentation</a> for a list of optional parameters and expected results.</p>",
     "version": "0.0.0",
@@ -11,10 +40,21 @@
     "groupTitle": "AccuWeather"
   },
   {
-    "type": "get",
+    "type": "post",
+    "url": "/geoposition",
+    "title": "Requests information of latitude and longitude coordinates",
+    "name": "PostGeoPosition",
+    "group": "AccuWeather",
+    "description": "<p>This end point is a pass through to the developer.accuweather.com API. All parameters will pass on to http://dataservice.accuweather.com/currentconditions/v1/. See the <a href=\"https://developer.accuweather.com/accuweather-locations-api/apis/get/locations/v1/cities/geoposition/search\">Accuweather documentation</a> for a list of optional parameters and expected results.</p>",
+    "version": "0.0.0",
+    "filename": "routes/geoposition.js",
+    "groupTitle": "AccuWeather"
+  },
+  {
+    "type": "post",
     "url": "/fiveday",
-    "title": "Request the 5 day forecast of a zip code (98374)",
-    "name": "GetTweleveHour",
+    "title": "Request the 5 day forecast of a location key",
+    "name": "PostTweleveHour",
     "group": "AccuWeather",
     "description": "<p>This end point is a pass through to the developer.accuweather.com API. All parameters will pass on to http://dataservice.accuweather.com/currentconditions/v1/. See the <a href=\"https://developer.accuweather.com/accuweather-forecast-api/apis/get /forecasts/v1/daily/5day/%7BlocationKey%7D\">Accuweather documentation</a> for a list of optional parameters and expected results.</p>",
     "version": "0.0.0",
@@ -22,14 +62,25 @@
     "groupTitle": "AccuWeather"
   },
   {
-    "type": "get",
+    "type": "post",
     "url": "/twelvehour",
-    "title": "Request the 12 hour forecast of a zip code (98374)",
-    "name": "GetTweleveHour",
+    "title": "Request the 12 hour forecast of a location key",
+    "name": "PostTwelveHour",
     "group": "AccuWeather",
     "description": "<p>This end point is a pass through to the developer.accuweather.com API. All parameters will pass on to http://dataservice.accuweather.com/currentconditions/v1/. See the <a href=\"https://developer.accuweather.com/accuweather-forecast-api/apis/get/ forecasts/v1/hourly/12hour/%7BlocationKey%7D\">Accuweather documentation</a> for a list of optional parameters and expected results.</p>",
     "version": "0.0.0",
     "filename": "routes/twelvehour.js",
+    "groupTitle": "AccuWeather"
+  },
+  {
+    "type": "post",
+    "url": "/currentweather",
+    "title": "Request tinformation on a given zipcode",
+    "name": "PostZipCode",
+    "group": "AccuWeather",
+    "description": "<p>This end point is a pass through to the developer.accuweather.com API. All parameters will pass on to http://dataservice.accuweather.com/currentconditions/v1/. See the <a href=\"https://developer.accuweather.com/accuweather-locations-api/apis/get/locations/v1/postalcodes/search\">Accuweather documentation</a> for a list of optional parameters and expected results.</p>",
+    "version": "0.0.0",
+    "filename": "routes/zipcode.js",
     "groupTitle": "AccuWeather"
   },
   {
@@ -1099,7 +1150,7 @@
   },
   {
     "type": "post",
-    "url": "/add",
+    "url": "/`add`",
     "title": "Send Friend Request to another user",
     "name": "addUser",
     "group": "Contacts",
@@ -1115,13 +1166,22 @@
             "description": "<p>&quot;Missing required information&quot;</p>"
           }
         ],
-        "404 Contact Exist": [
+        "404 Contact Does Not Exists": [
           {
-            "group": "404 Contact Exist",
+            "group": "404 Contact Does Not Exists",
             "type": "String",
             "optional": false,
             "field": "message",
-            "description": "<p>&quot;This username is already in your contact&quot;</p>"
+            "description": "<p>&quot;Contact does not exist&quot;</p>"
+          }
+        ],
+        "404 Already Friends": [
+          {
+            "group": "404 Already Friends",
+            "type": "String",
+            "optional": false,
+            "field": "message",
+            "description": "<p>&quot;This user in your list or request pending&quot;</p>"
           }
         ],
         "400: SQL Error": [
@@ -1152,6 +1212,48 @@
             "optional": false,
             "field": "success:",
             "description": "<p>true</p>"
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "routes/contact.js",
+    "groupTitle": "Contacts"
+  },
+  {
+    "type": "post",
+    "url": "/decline",
+    "title": "decline the friend request",
+    "name": "declineUser",
+    "group": "Contacts",
+    "description": "<p>API to decline a friend request using username</p>",
+    "error": {
+      "fields": {
+        "400 Missing Params": [
+          {
+            "group": "400 Missing Params",
+            "type": "String",
+            "optional": false,
+            "field": "message",
+            "description": "<p>&quot;Missing required information&quot;</p>"
+          }
+        ],
+        "400: SQL Error": [
+          {
+            "group": "400: SQL Error",
+            "type": "String",
+            "optional": false,
+            "field": "message",
+            "description": "<p>the reported SQL error details</p>"
+          }
+        ],
+        "400: JSON Error": [
+          {
+            "group": "400: JSON Error",
+            "type": "String",
+            "optional": false,
+            "field": "message",
+            "description": "<p>&quot;malformed JSON in parameters&quot;</p>"
           }
         ]
       }
@@ -1238,6 +1340,82 @@
             "optional": false,
             "field": "message",
             "description": "<p>&quot;malformed JSON in parameters&quot;</p>"
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "routes/contact.js",
+    "groupTitle": "Contacts"
+  },
+  {
+    "type": "post",
+    "url": "/favorite/delete/:memberId?",
+    "title": "un-favorite a contact",
+    "name": "deleteFavorite",
+    "group": "Contacts",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "number",
+            "optional": false,
+            "field": "memberID",
+            "description": ""
+          }
+        ]
+      }
+    },
+    "description": "<p>Unfavorite a contact by setting the according favorite column value to 0.</p>",
+    "error": {
+      "fields": {
+        "400 Missing Params": [
+          {
+            "group": "400 Missing Params",
+            "type": "String",
+            "optional": false,
+            "field": "message",
+            "description": "<p>&quot;Missing required information&quot;</p>"
+          }
+        ],
+        "400 Bad Token": [
+          {
+            "group": "400 Bad Token",
+            "type": "String",
+            "optional": false,
+            "field": "message",
+            "description": "<p>&quot;Malformed parameter. MemberID must be a number&quot;</p>"
+          }
+        ],
+        "400: SQL Error": [
+          {
+            "group": "400: SQL Error",
+            "type": "String",
+            "optional": false,
+            "field": "message",
+            "description": "<p>the reported SQL error details</p>"
+          }
+        ],
+        "400: JSON Error": [
+          {
+            "group": "400: JSON Error",
+            "type": "String",
+            "optional": false,
+            "field": "message",
+            "description": "<p>&quot;malformed JSON in parameters&quot;</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "optional": false,
+            "field": "success:true",
+            "description": ""
           }
         ]
       }
@@ -2071,5 +2249,41 @@
     "version": "0.0.0",
     "filename": "routes/phish.js",
     "groupTitle": "Phish"
+  },
+  {
+    "type": "get",
+    "url": "/?:city=<city>",
+    "title": "",
+    "name": "getWeatherCurrentUsingCity",
+    "group": "Weather",
+    "description": "<p>Connect to a 3rd party API using https and get the current weather with city name provided</p>",
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "optional": false,
+            "field": "weather",
+            "description": "<p>data</p>"
+          }
+        ]
+      }
+    },
+    "error": {
+      "fields": {
+        "400: Missing Required Information": [
+          {
+            "group": "400: Missing Required Information",
+            "type": "String",
+            "optional": false,
+            "field": "message",
+            "description": "<p>&quot;Missing required information&quot;</p>"
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "routes/weather.js",
+    "groupTitle": "Weather"
   }
 ]
