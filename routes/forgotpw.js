@@ -33,12 +33,13 @@ router.get("/", (request, res) => {
                             .then(result => {
                                 let message1 = "Your password with Group 1's app has been changed." +
                                 " Your new password is:\n" + mySaltNewPass
+                                res.status(201).send( {
+                                    success: true,
+                                    message: "Temporary password created"
+                                })
                         sendEmail(sourceEmail, email, "changed", message1)
                     })
-                    res.status(201).send( {
-                        success: true,
-                        message: "Temporary password created"
-                    })
+                    
                 }
             })
             return 

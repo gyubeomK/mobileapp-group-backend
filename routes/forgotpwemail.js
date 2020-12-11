@@ -26,7 +26,7 @@ router.get("/", (request, response) => {
          success : true,
     //     address : address,
     //     url : url,
-         message: "Password changed successfully!",
+         message: "Password change email sent!",
     //     sourceEmail: sourceEmail
      })
 })
