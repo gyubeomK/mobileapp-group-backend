@@ -11,15 +11,14 @@ const request = require('request')
 
 var router = express.Router()
 /**
- * @api {get} /currentweather Request the current weather of a zip code (98374)
- * @apiName GetCurrentWeather
+ * @api {post} /currentweather Request tinformation on a given zipcode
+ * @apiName PostZipCode
  * 
  * @apiGroup AccuWeather
  * 
  * @apiDescription This end point is a pass through to the developer.accuweather.com API.
  * All parameters will pass on to http://dataservice.accuweather.com/currentconditions/v1/.
- * See the <a href="https://developer.accuweather.com/accuweather-current-conditions-api/apis/get
- * /currentconditions/v1/%7BlocationKey%7D">Accuweather documentation</a> for a list of optional
+ * See the <a href="https://developer.accuweather.com/accuweather-locations-api/apis/get/locations/v1/postalcodes/search">Accuweather documentation</a> for a list of optional
  * parameters and expected results.
  */
 router.post("/", (req, res) => {
@@ -27,7 +26,7 @@ router.post("/", (req, res) => {
    
     const query = req.body.zipcode
 
-    let url = "http://dataservice.accuweather.com/locations/v1/postalcodes/search?apikey="+API_KEY2+"&q="+query
+    let url = "http://dataservice.accuweather.com/locations/v1/postalcodes/search?apikey="+API_KEY+"&q="+query
 
     request(url, function (error, response, body) {
 

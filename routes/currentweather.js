@@ -11,8 +11,8 @@ const request = require('request')
 
 var router = express.Router()
 /**
- * @api {get} /currentweather Request the current weather of a zip code (98374)
- * @apiName GetCurrentWeather
+ * @api {post} /currentweather Request the current weather for a location key
+ * @apiName PostCurrentWeather
  * 
  * @apiGroup AccuWeather
  * 
@@ -26,7 +26,7 @@ router.post("/", (req, res) => {
     
     const query = req.body.locationkey
 
-    let url = "http://dataservice.accuweather.com/currentconditions/v1/"+query+"?apikey="+API_KEY2
+    let url = "http://dataservice.accuweather.com/currentconditions/v1/"+query+"?apikey="+API_KEY
 
     request(url, function (error, response, body) {
 
