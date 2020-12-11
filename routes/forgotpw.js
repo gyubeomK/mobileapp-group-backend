@@ -19,7 +19,9 @@ router.get("/", (request, res) => {
             .then(result => {
                 if (result.rowCount == 0) {
                     res.status(404).send({
-                        message: "User Information not found"
+                        message: "User Information not found",
+                        address: address,
+                        theQuery: theQuery
                     })
                     return
                 }  else {
