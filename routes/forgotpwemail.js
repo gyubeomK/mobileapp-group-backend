@@ -14,8 +14,8 @@ router.get("/", (request, response) => {
     var address = request.query.email
     //if(request.query.email) {
     //secure but not in terms of malicious inconvenience. there's a better way, this is too simple
-     let url = 'https://mobileapp-group-backend.herokuapp.com/forgotpw?email='
-                     + address
+     let url = 'https://mobileapp-group-backend.herokuapp.com/forgotpw?email=\''
+                     + address + '\''
          var htmlString1 = '<a href='
          var htmlString2 = '>Generate a temporary password</a>'
          var finalConcat1 = htmlString1.concat(url)
