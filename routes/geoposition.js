@@ -27,7 +27,7 @@ router.post("/", (req, res) => {
     const lat = req.body.latitude
     const lon = req.body.longitude
 
-    let url = "http://dataservice.accuweather.com/locations/v1/cities/geoposition/search?apikey="+API_KEY3+"&q="+lat+"%2C"+lon
+    let url = "http://dataservice.accuweather.com/locations/v1/cities/geoposition/search?apikey="+API_KEY2+"&q="+lat+"%2C"+lon
 
     request(url, function (error, response, body) {
 
