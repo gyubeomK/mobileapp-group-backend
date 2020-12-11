@@ -13,8 +13,8 @@ router.get("/", (request, res) => {
     // created group email for mailing purposes. mail sent from there
     var address = request.query.email
     if(request.query.email) {
-        let theQuery = 'SELECT Password, Salt FROM Members WHERE Email=$1'
-        let values = [address]
+        let theQuery = 'SELECT Password, Salt FROM Members WHERE Email=' + address
+        let values = []
         pool.query(theQuery, values)
             .then(result => {
                 if (result.rowCount == 0) {
@@ -23,7 +23,6 @@ router.get("/", (request, res) => {
                         address: address,
                         theQuery: theQuery
                     })
-                    return
                 }  else {
                     let newSalt = crypt.randomBytes(32).toString('hex')
                     let mySaltNewPass = getHash("randomPassword", newSalt) //hash for new password

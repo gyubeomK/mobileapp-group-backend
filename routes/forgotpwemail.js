@@ -22,13 +22,13 @@ router.get("/", (request, response) => {
          var fullMessage = finalConcat1.concat(htmlString2)
          sendEmail(sourceEmail, address, "recovery", fullMessage) 
     //}
-    // response.send( {
-    //     success : true,
+     response.send( {
+         success : true,
     //     address : address,
     //     url : url,
-    //     fullMessage: fullMessage,
+         message: "Password changed successfully!",
     //     sourceEmail: sourceEmail
-    // })
+     })
 })
 
 module.exports = router
