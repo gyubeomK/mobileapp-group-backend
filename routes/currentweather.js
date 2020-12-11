@@ -26,7 +26,7 @@ router.post("/", (req, res) => {
     
     const query = req.body.locationkey
 
-    let url = "http://dataservice.accuweather.com/currentconditions/v1/"+query+"?apikey="+API_KEY3
+    let url = "http://dataservice.accuweather.com/currentconditions/v1/"+query+"?apikey="+API_KEY2
 
     request(url, function (error, response, body) {
 
