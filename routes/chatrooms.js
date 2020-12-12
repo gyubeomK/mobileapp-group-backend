@@ -1,3 +1,29 @@
+/**
+ * Chat back-end
+ * @author Gyubeom Kim
+ * @version 3.0
+ */
+
+ /**
+ * @api {chatrooms} /:memId? to add a member to the chat
+ * @apiName chatrooms
+ * @apiGroup Chat
+ * 
+ * @apiDescription get list of chat
+ * 
+ * @apiParam {number} memId
+ * 
+ * @apiSuccess {boolean, list} true, chatlist if the member belongs to chats
+ * 
+ * @apiError (400: Missing Params) {String} message "Missing required information"
+ * @apiError (400: Invalid memberId) {String} message "Malformed parameter. memberId must be a number"
+ * @apiError (404: query return no row) {String} message "No messages"
+ * 
+ * @apiError (400: SQL Error) {String} SQL error
+ * 
+ * @apiUse JSONError
+ */
+
 //express is the framework we're going to use to handle requests
 const express = require('express')
 

@@ -1,3 +1,24 @@
+/**
+ * Password back-end
+ * @author Gyubeom Kim
+ * @version 3.0
+ */
+
+ /**
+ * @api {password} /change to add a member to the chat
+ * @apiName passwordfinding
+ * @apiGroup password
+ * 
+ * @apiDescription change password
+ * 
+ * @apiSuccess {boolean, string} true, message if the password is correctly changed
+ * 
+ * @apiError (400: Missing Params) {String} message "Missing required information"
+ * @apiError (404: query return no row) {String} message "User Information not found"
+ *   
+ * @apiUse JSONError
+ */
+
 //express is the framework we're going to use to handle requests
 const express = require('express')
 

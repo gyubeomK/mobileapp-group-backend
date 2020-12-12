@@ -1,4 +1,30 @@
-//express is the framework we're going to use to handle requests
+/**
+ * Chat back-end
+ * @author Gyubeom Kim
+ * @version 3.0
+ */
+
+/**
+ * @api {addcontactmember} /:chatId? to add a member to the chat
+ * @apiName addContactMember
+ * @apiGroup Chat
+ * 
+ * @apiDescription Adds the user in contact into the corressponding chat 
+ * 
+ * @apiParam {number} chatId
+ * 
+ * @apiSuccess {boolean, string} true, message if the member is correctly added to chat
+ * 
+ * @apiError (400: Missing Params) {String} message "Missing required information"
+ * @apiError (400: Invalid ChatId) {String} message "Malformed parameter. chatId must be a number"
+ * @apiError (404: query return no row) {String} message "Chat ID not found"
+ * @apiError (404: query return no row) {String} message "email not found"
+ * 
+ * @apiError (400: SQL Error) {String} SQL error
+ * 
+ * @apiUse JSONError
+ */
+
 const express = require('express')
 
 //Access the connection to Heroku Database
