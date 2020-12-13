@@ -40,11 +40,15 @@ router.post("/", (req, res) => {
         } else {
             
              //res.send(data);
-            //  var n = body
+              //var n = body
             //  var nakidBody = n.substring(1, n.length-1)
 
             //  res.send(nakidBody)
-            res.send(body)
+            var str = body
+            var text = str.replace("[","{").replace("]","}")
+            
+            res.send(text)
+
             
             
         }
