@@ -565,4 +565,54 @@ router.post('/decline', (request, response, next) => {
     })
 })
 
+router.get("/all", (request, response, next) => {
+    console.log("/contact");
+    if (!request.decoded.memberid) {
+        response.status(400).send({
+            message: "Missing required information"
+        })
+    } else if (isNaN(request.decoded.memberid)) {
+        response.status(400).send({
+            message: "Malformed parameter. memberId must be a number"
+        })
+    } else {
+        next()
+    }
+}, (request, response) => {
+    //Get contact info
+    let query = 'SELECT * FROM Members'
+
+    pool.query(query, values)
+        .then(result => {
+            if (result.rowCount == 0) {
+                response.status(404).send({
+                    message: "no contacts"
+                })
+            } else {
+                let listContacts = [];
+                result.rows.forEach(entry =>
+                    listContacts.push(
+                        {
+                            "email": entry.email,
+                            "firstName": entry.firstname,
+                            "lastName": entry.lastname,
+                            "userName": entry.username,
+                            "memberId": entry.memberid_b,
+                            "verified": entry.verified
+                        }
+                    )
+                )
+                response.send({
+                    success: true,
+                    contacts: listContacts
+                })
+            }
+        }).catch(error => {
+            response.status(400).send({
+                message: "SQL Error",
+                error: error
+            })
+        })
+});
+
 module.exports = router
