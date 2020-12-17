@@ -580,7 +580,7 @@ router.get("/all", (request, response, next) => {
     }
 }, (request, response) => {
     //Get contact info
-    let query = 'SELECT * FROM Members'
+    let query = 'SELECT Verified, MemberID_B, Members.FirstName, Members.LastName, Members.email, Members.Username FROM Members'
 
     pool.query(query, values)
         .then(result => {
