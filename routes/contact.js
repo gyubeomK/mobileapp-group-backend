@@ -566,7 +566,7 @@ router.post('/decline', (request, response, next) => {
 })
 
 router.get("/all", (request, response, next) => {
-    console.log("/contact");
+    console.log("/contact/all");
     if (!request.decoded.memberid) {
         response.status(400).send({
             message: "Missing required information"
@@ -580,7 +580,7 @@ router.get("/all", (request, response, next) => {
     }
 }, (request, response) => {
     //Get contact info
-    let query = 'SELECT Verified, MemberID_B, Members.FirstName, Members.LastName, Members.email, Members.Username FROM Members'
+    let query = 'SELECT * FROM Members'
 
     pool.query(query, values)
         .then(result => {
