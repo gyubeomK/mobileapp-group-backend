@@ -580,7 +580,7 @@ router.get("/all", (request, response, next) => {
     }
 }, (request, response) => {
     //Get contact info
-    let query = 'SELECT Members.FirstName, Members.LastName, Members.email, Members.Username FROM Members'
+    let query = 'SELECT Members.MemberID, Members.FirstName, Members.LastName, Members.email, Members.Username FROM Members'
 
     pool.query(query)
         .then(result => {
@@ -596,7 +596,8 @@ router.get("/all", (request, response, next) => {
                             "email": entry.email,
                             "firstName": entry.firstname,
                             "lastName": entry.lastname,
-                            "userName": entry.username
+                            "userName": entry.username,
+                            "memberId": entry.memberid
                         }
                     )
                 )
