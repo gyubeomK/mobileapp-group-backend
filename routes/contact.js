@@ -597,7 +597,7 @@ router.get("/all", (request, response, next) => {
 }, (request, response) => {
     //Get contact info
     let query = 'SELECT Members.MemberID, Members.FirstName, Members.LastName, Members.email, Members.Username FROM Members OUTER JOIN Contacts ON MemberID = Contacts.MemberID_A WHERE Contacts.MemberID_A = $1'
-    let values = [request.decoded.memberId]
+    let values = [request.decoded.memberid]
     pool.query(query, values)
         .then(result => {
             if (result.rowCount == 0) {
