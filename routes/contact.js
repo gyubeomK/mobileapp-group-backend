@@ -565,6 +565,22 @@ router.post('/decline', (request, response, next) => {
     })
 })
 
+
+/**
+ * @api {post} /all get all user registered in the system
+ * @apiName getAll
+ * @apiGroup Contacts
+ * 
+ * @apiDescription API to get all registered user in the system
+ * 
+ * 
+ * @apiError (400 Missing Params) {String} message "Missing required information"
+ * @apiError (400 Missing Params) {String} message "Malformed parameter. MemberID must be a number"
+ * 
+ * @apiError (400: SQL Error) {String} message the reported SQL error details
+ * 
+ * @apiUse JSONError
+ */
 router.get("/all", (request, response, next) => {
     console.log("/contact/all");
     if (!request.decoded.memberid) {
@@ -580,9 +596,9 @@ router.get("/all", (request, response, next) => {
     }
 }, (request, response) => {
     //Get contact info
-    let query = 'SELECT Members.MemberID, Members.FirstName, Members.LastName, Members.email, Members.Username FROM Members'
-
-    pool.query(query)
+    let query = 'SELECT Members.MemberID, Members.FirstName, Members.LastName, Members.email, Members.Username FROM Members OUTER JOIN Contacts ON MemberID = Contacts.MemberID_A WHERE Contacts.MemberID_A = $1'
+    let values = [request.decoded.memberId]
+    pool.query(query, values)
         .then(result => {
             if (result.rowCount == 0) {
                 response.status(404).send({
