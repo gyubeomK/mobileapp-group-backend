@@ -596,7 +596,7 @@ router.get("/all", (request, response, next) => {
     }
 }, (request, response) => {
     //Get contact info
-    let query = 'SELECT Members.MemberID, Members.FirstName, Members.LastName, Members.email, Members.Username FROM Members INNER JOIN Contacts ON Members.MemberID = Contacts.MemberID_A WHERE Contacts.MemberID_A = $1 AND Members.MemberID NOT IN (Contacts.MemberID_B)'
+    let query = 'SELECT Members.MemberID, Members.FirstName, Members.LastName, Members.email, Members.Username FROM Members WHERE MemberID NOT IN (SELECT MemberID_B FROM Contacts WHERE MemberID_A = $1)'
     let values = [request.decoded.memberid]
     pool.query(query, values)
         .then(result => {
